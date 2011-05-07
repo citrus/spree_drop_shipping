@@ -32,7 +32,7 @@ end
 desc "preps the testing environment"
 task :test_prep do
   
-  require 'generators/dummy_generator'
+  require 'spree_drop_shipping/generators/dummy_generator'
   
   DummyGenerator.new.run!
   

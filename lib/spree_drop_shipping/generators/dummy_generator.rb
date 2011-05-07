@@ -31,7 +31,7 @@ class DummyGenerator < Rails::Generators::Base
   
   # Path to the extension's test folder
   def test_path
-    File.expand_path("../../../test", __FILE__)
+    File.expand_path("../../../../test", __FILE__)
   end
   
   # Path to the testing application
@@ -61,15 +61,13 @@ class DummyGenerator < Rails::Generators::Base
     end
     
     FileUtils.chdir destination_path do
-      
-      puts run "ls"
-      
+            
       run "rm -r public/index.html public/images/rails.png Gemfile README doc test vendor"
             
       template "rails/boot.rb", "#{destination_path}/config/boot.rb", :force => true
       template "rails/application.rb", "#{destination_path}/config/application.rb", :force => true    
       
-      run "rake spree_core:install spree_auth:install db:migrate"
+      run "rake spree_core:install spree_auth:install spree_sample:install db:migrate"
       
       puts run "rails g"
       
