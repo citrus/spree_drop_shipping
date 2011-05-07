@@ -78,7 +78,7 @@ class DummyGenerator < Rails::Generators::Base
       # install spree and migrate db
       run "rake spree_core:install spree_auth:install spree_sample:install"
       run "rails g spree_drop_shipping:install"
-      run "rake db:migrate"
+      run "rake db:migrate RAILS_ENV=test"
     end
        
   end
