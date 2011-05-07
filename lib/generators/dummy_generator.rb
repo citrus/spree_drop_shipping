@@ -3,9 +3,14 @@ require "thor/actions"
 require "rails/generators"
 require "rails/generators/rails/app/app_generator"
 
+# Add to the source paths.. is there a better way to do this?!
 Rails::Generators::Base.class_eval do
   source_paths << File.expand_path('../templates', __FILE__)
 end
+
+
+# Much of this generator came from enginex by José Valim
+# https://github.com/josevalim/enginex/blob/master/lib/enginex.rb
 
 class DummyGenerator < Rails::Generators::Base
   
@@ -31,7 +36,7 @@ class DummyGenerator < Rails::Generators::Base
   
   # Path to the extension's test folder
   def test_path
-    File.expand_path("../../../../test", __FILE__)
+    File.expand_path("../../../test", __FILE__)
   end
   
   # Path to the testing application
@@ -39,7 +44,7 @@ class DummyGenerator < Rails::Generators::Base
     File.join(test_path, name)
   end
   
-  
+  # gets the current application.rb contents
   def application_definition
     @application_definition ||= begin
       contents = File.read("#{destination_path}/config/application.rb")
@@ -52,25 +57,28 @@ class DummyGenerator < Rails::Generators::Base
   
   # Runs the generator
   def run!
-    puts "running!"
-        
+    
+    # remove existing test app 
     FileUtils.rm_r(destination_path) if File.directory?(destination_path)
     
+    # cd into the test dir and run the base app generator
     FileUtils.chdir "test" do
       Rails::Generators::AppGenerator.start([name], { :verbose => false })
     end
     
+    # cd into the new app and customize
     FileUtils.chdir destination_path do
-            
+      # remove unnecessary files    
       run "rm -r public/index.html public/images/rails.png Gemfile README doc test vendor"
             
+      # replace crucial templates
       template "rails/boot.rb", "#{destination_path}/config/boot.rb", :force => true
       template "rails/application.rb", "#{destination_path}/config/application.rb", :force => true    
       
-      run "rake spree_core:install spree_auth:install spree_sample:install db:migrate"
-      
-      puts run "rails g"
-      
+      # install spree and migrate db
+      run "rake spree_core:install spree_auth:install spree_sample:install"
+      run "rails g spree_drop_shipping:install"
+      run "rake db:migrate"
     end
        
   end
