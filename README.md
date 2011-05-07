@@ -36,7 +36,8 @@ Testing
 
 Run `rake test_prep` to get the show started. This will generate a fresh rails app in test/dummy, install spree & spree_drop_shipping, then migrate the test database...
 
-Sweet.
+Sweet. Now we can spork and open a new window to run the tests in...
+
 
 
 

@@ -21,7 +21,7 @@ Spork.prefork do
   
   Capybara.default_driver = :selenium
   
-  # Run any available migration
+  # Run any available migration if needed
   ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
     
 end
