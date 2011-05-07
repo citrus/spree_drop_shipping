@@ -7,7 +7,8 @@ Spork.prefork do
   require File.expand_path("../dummy/config/environment.rb",  __FILE__)
   require "rails/test_help"
   require "shoulda"
-  require 'sqlite3'
+  require "factory_girl"
+  require "sqlite3"
   
   ActionMailer::Base.delivery_method    = :test
   ActionMailer::Base.perform_deliveries = true
@@ -24,6 +25,11 @@ Spork.prefork do
   # Run any available migration if needed
   ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
     
+  # Include devise helpers for controller tests
+  class ActionController::TestCase
+    include Devise::TestHelpers
+  end
+  
 end
 
 Spork.each_run do
