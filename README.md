@@ -5,6 +5,12 @@ Spree Drop Shipping
 
 
 
+Testing
+-------
+
+Run `rake test_prep` to get the show started. This will generate our test/dummy app....
+
+
 License
 -------
 
