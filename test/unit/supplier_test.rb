@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class SupplierTest < Test::Unit::TestCase
+class SupplierTest < ActiveSupport::TestCase
 
   def setup
     

@@ -9,6 +9,7 @@ Spork.prefork do
   require "shoulda"
   require "factory_girl"
   require "sqlite3"
+  require "faker"
   
   ActionMailer::Base.delivery_method    = :test
   ActionMailer::Base.perform_deliveries = true
@@ -28,6 +29,11 @@ Spork.prefork do
   # Include devise helpers for controller tests
   class ActionController::TestCase
     include Devise::TestHelpers
+  end
+  
+  class ActiveSupport::TestCase
+    self.fixture_path = File.expand_path('../fixtures', __FILE__)
+    fixtures :all
   end
   
 end
