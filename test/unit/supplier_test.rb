@@ -10,6 +10,8 @@ class SupplierTest < Test::Unit::TestCase
   should validate_presence_of(:name)
   should validate_presence_of(:email)
   should validate_presence_of(:phone)
+  
+  should have_many(:products)
 
   #should have_one(:address)
     

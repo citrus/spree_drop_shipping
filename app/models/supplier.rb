@@ -4,7 +4,8 @@ class Supplier < ActiveRecord::Base
   # Associations
   
   has_one  :address
-  has_many :products  
+  has_many :supplier_products
+  has_many :products, :through => :supplier_products
     
   #==========================================
   # Validations

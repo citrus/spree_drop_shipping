@@ -38,15 +38,19 @@ Clone this repo to where you develop, then run `rake test_prep` to get the show 
 
 Sweet. Now we can spork and open a new window to run the tests in...
 
-    # in one window
+In one window:
+
     spork
 
-    # in another window
+In another window, run all tests:
+
     testdrb test/**/*_test.rb
     
-    # or
+Or just a specific test:
+
     testdrb test/unit/supplier_test.rb
   
+
 
 
 

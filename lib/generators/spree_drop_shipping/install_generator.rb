@@ -23,6 +23,7 @@ module SpreeDropShipping
       
       def copy_migrations
         migration_template "create_suppliers.rb", "db/migrate/create_suppliers.rb"
+        migration_template "create_supplier_products.rb", "db/migrate/create_supplier_products.rb"
       end
 
     end
