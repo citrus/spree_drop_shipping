@@ -35,7 +35,8 @@ end
 Spork.each_run do
 
   # Load support files
-  Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+  Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| load f }
+  Dir["#{File.expand_path("../../", __FILE__)}/app/**/*.rb"].each { |f| puts f; load f }
   
   include HelperMethods
 
