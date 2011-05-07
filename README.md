@@ -34,11 +34,19 @@ You should be up and running now! - except that this gem doesn't do anything yet
 Testing
 -------
 
-Run `rake test_prep` to get the show started. This will generate a fresh rails app in test/dummy, install spree & spree_drop_shipping, then migrate the test database...
+Clone this repo to where you develop, then run `rake test_prep` to get the show started. This will generate a fresh rails app in test/dummy, install spree & spree_drop_shipping, then migrate the test database...
 
 Sweet. Now we can spork and open a new window to run the tests in...
 
+    # in one window
+    spork
 
+    # in another window
+    testdrb test/**/*_test.rb
+    
+    # or
+    testdrb test/unit/supplier_test.rb
+  
 
 
 
