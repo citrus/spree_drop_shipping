@@ -1,6 +1,8 @@
 class Admin::SuppliersController < Admin::ResourceController
 
   before_filter :load_data, :only => [ :new, :create, :edit, :update ]
+   
+  create.before :attach_address
     
 	def index
 	   #  render :template => request.xhr? ? 'admin/uploads/picker' : 'admin/uploads/index', :layout => !request.xhr?
@@ -10,6 +12,11 @@ class Admin::SuppliersController < Admin::ResourceController
     @supplier = Supplier.new
     @supplier.address = Address.new
   end
+  
+  def attach_address
+    @supplier.address = Address.new(params[:address])
+  end
+    
     
   private
   

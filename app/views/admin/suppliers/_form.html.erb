@@ -1,8 +1,6 @@
-<%= @supplier.address.inspect %>
-
 <fieldset class="floating">
   
-  <legend><%= t('supplier details') %></legend>
+  <legend><%= t('.supplier_details') %></legend>
   
   <%= form.field_container :name do %>
     <%= form.label :name, t('supplier.name') %><br />
@@ -52,12 +50,12 @@
 
 <fieldset class="floating">
   
-  <legend><%= t('supplier address') %></legend>
+  <legend><%= t('.supplier_address') %></legend>
   
-  <%= form.fields_for @supplier.address do |f| %>
+  <%= fields_for @supplier.address do |f| %>
         
-    <%= f.hidden_field :firstname, 'SUPPLIER' %>
-    <%= f.hidden_field :lastname, 'SUPPLIER' %>
+    <%= f.hidden_field :firstname, :value => 'SUPPLIER' %>
+    <%= f.hidden_field :lastname, :value => 'SUPPLIER' %>
         
     <%= f.field_container :address1 do %>
       <%= f.label :address1, t('supplier.address1') %><br />

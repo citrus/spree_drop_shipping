@@ -31,10 +31,69 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
-When /^I click on "([^"]*)"$/ do |link|
-  click_link link
+
+
+#========================================================================
+# Givens
+
+Given /^I'm on the ((?!page).*) page$/ do |path|
+  path = "#{path.downcase.gsub(/\s/, '_')}_path".to_sym
+  begin 
+    visit send(path)
+  rescue 
+    puts "#{path} could not be found!"
+  end
 end
+
+
+#========================================================================
+# Actions
+
+When /^(?:|I )press "([^"]*)"$/ do |button|
+  click_button(button)
+end
+
+When /^(?:|I )follow "([^"]*)"$/ do |link|
+  click_link(link)
+end
+
+
+#========================================================================
+# Assertions
 
 Then /^I should see "([^"]*)"$/ do |text|
   assert page.has_content?(text)
 end
+
+Then /^I should see "([^"]*)" in (.*)$/ do |text, parent|
+  case parent
+    when "the main menu"
+      parent = "#admin-menu"    
+    when "the flash notice"
+      parent = ".flash"  
+  end
+  within parent do
+    assert page.has_content?(text)
+  end
+end
+
+
+#========================================================================
+# Forms
+
+When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
+  fill_in(field, :with => value)
+end
+
+When /^(?:|I )fill in the following:$/ do |fields|
+  fields.rows_hash.each do |name, value|
+    When %{I fill in "#{name}" with "#{value}"}
+  end
+end
+
+When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+  select(value, :from => field)
+end
+
+
+
