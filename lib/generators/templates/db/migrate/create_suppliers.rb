@@ -6,9 +6,10 @@ class CreateSuppliers < ActiveRecord::Migration
       t.string     :name
       t.string     :email
       t.string     :phone
+      t.string     :url
       t.string     :contact
-      t.string     :contact_phone
       t.string     :contact_email      
+      t.string     :contact_phone
       t.timestamps
     end
   end

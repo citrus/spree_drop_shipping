@@ -75,14 +75,13 @@ class DummyGenerator < Rails::Generators::Base
       template "rails/boot.rb", "#{destination_path}/config/boot.rb", :force => true
       template "rails/application.rb", "#{destination_path}/config/application.rb", :force => true    
       
-      #template "rails/cucumber.yml", "#{destination_path}/config/cucumber.yml", :force => true    
-      
       # install spree and migrate db
       run "rake spree_core:install spree_auth:install spree_sample:install"
       run "rails g spree_drop_shipping:install"
       run "rake db:migrate RAILS_ENV=test"
       
-      append_to_file "#{destination_path}/config/database.yml" do
+      # add cucumber to database.yml
+      append_file "#{destination_path}/config/database.yml" do
         %(cucumber:
           <<: *test)
       end

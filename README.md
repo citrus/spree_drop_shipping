@@ -49,7 +49,9 @@ Then, in another window, run:
 If you want to run shoulda tests, start spork with:
 
     bundle exec spork TestUnit
-    
+    #or 
+    bundle exec spork t
+        
 In another window, run all tests:
 
     bundle exec testdrb test/**/*_test.rb
@@ -59,6 +61,17 @@ Or just a specific test:
     bundle exec testdrb test/unit/supplier_test.rb
   
 
+Demo
+----
+
+You can easily use the test/dummy app as a demo of spree_drop_shipping. Just clone the repo and run:
+
+    rake test_prep
+    cd test/dummy  
+    rake db:migrate db:seed db:sample
+    rails s
+
+Enjoy!
 
 License
 -------

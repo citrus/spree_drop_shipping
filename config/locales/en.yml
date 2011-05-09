@@ -1,0 +1,11 @@
+en:
+  supplier:
+    name: Name
+    email: Email
+    phone: Phone
+    url: URL
+    contact: Contact
+    contact_phone: Contact Phone
+    contact_email: Contact Email
+    
+  

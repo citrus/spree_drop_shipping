@@ -1,0 +1,127 @@
+<%= @supplier.address.inspect %>
+
+<fieldset class="floating">
+  
+  <legend><%= t('supplier details') %></legend>
+  
+  <%= form.field_container :name do %>
+    <%= form.label :name, t('supplier.name') %><br />
+    <%= form.text_field :name, :class => 'title' %>
+    <%= error_message_on :supplier, :name %>
+  <% end %>
+  
+  <%= form.field_container :email do %>
+    <%= form.label :email, t('supplier.email') %><br />
+    <%= form.email_field :email, :class => 'text' %>
+    <%= error_message_on :supplier, :email %>
+  <% end %>
+  
+  <%= form.field_container :phone do %>
+    <%= form.label :phone, t('supplier.phone') %><br />
+    <%= form.text_field :phone, :class => 'text' %>
+    <%= error_message_on :supplier, :phone %>
+  <% end %>
+  
+  <%= form.field_container :url do %>
+    <%= form.label :url, t('supplier.url') %><br />
+    <%= form.text_field :url, :class => 'text' %>
+    <%= error_message_on :supplier, :url %>
+  <% end %>
+  
+  <%= form.field_container :contact do %>
+    <%= form.label :contact, t('supplier.contact') %><br />
+    <%= form.text_field :contact, :class => 'text' %>
+    <%= error_message_on :supplier, :contact %>
+  <% end %>
+  
+  <%= form.field_container :contact_email do %>
+    <%= form.label :contact_email, t('supplier.contact_email') %><br />
+    <%= form.email_field :contact_email, :class => 'text' %>
+    <%= error_message_on :supplier, :contact_email %>
+  <% end %>
+  
+  <%= form.field_container :contact_phone do %>
+    <%= form.label :contact_phone, t('supplier.contact_phone') %><br />
+    <%= form.text_field :contact_phone, :class => 'text' %>
+    <%= error_message_on :supplier, :contact_phone %>
+  <% end %>
+
+</fieldset>
+
+
+
+<fieldset class="floating">
+  
+  <legend><%= t('supplier address') %></legend>
+  
+  <%= form.fields_for :address do |f| %>
+    
+    <%= f.inspect %>
+    
+    <p>
+      <%= f.label :address1, t('supplier.address1') %><br />
+      <%= f.text_field :address1, :class => 'text' %>
+      <%= error_message_on :address, :address1 %>
+    </p>
+    
+    <%= f.field_container :address2 do %>
+      <%= f.label :address2, t('supplier.address2') %><br />
+      <%= f.text_field :address2, :class => 'text' %>
+      <%= error_message_on :address, :address2 %>
+    <% end %>
+    
+    <%= f.field_container :city do %>
+      <%= f.label :city, t('supplier.city') %><br />
+      <%= f.text_field :city, :class => 'text' %>
+      <%= error_message_on :address, :city %>
+    <% end %>
+    
+    <%= f.field_container :state do %>
+      <%= f.label :state, t('supplier.state') %><br />
+      <%= f.select :state, @state_options, :class => 'text' %>
+      <%= error_message_on :address, :state %>
+    <% end %>
+        
+    <%= f.field_container :zipcode do %>
+      <%= f.label :zipcode, t('supplier.zipcode') %><br />
+      <%= f.text_field :zipcode, :class => 'text' %>
+      <%= error_message_on :address, :zipcode %>
+    <% end %>
+    
+    <%= f.field_container :country do %>
+      <%= f.label :country, t('supplier.country') %><br />
+      <%= f.select :country, @country_options, :selected => @supplier.new_record? ? 214 : @supplier.address.country_id, :class => 'text' %>
+      <%= error_message_on :address, :country %>
+    <% end %>
+      
+  <% end %>
+  
+</fieldset>
+
+<br class="clear"/>
+
+<script type="text/javascript">
+//<![CDATA[
+
+  $(document).ready(function() {
+    $('#address_country').change(function(evt) {
+	    
+	    console.log(this.options[this.selectedIndex].value);
+	    
+	    if (this.options[this.selectedIndex].value == 214) {
+	      $('#address_state').remove();
+        $('#address_state_select').attr('id', 'address_state').show();
+	    } else {    
+  	    var p = $('#address_state').hide().attr('id', 'address_state_select').parent('p');
+  	    p.append('<input type="text" name="address[state]" id="address_state" class="text" />');
+  	  }
+	    
+    });
+  });
+   
+//]]>
+</script>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'admin/suppliers' %>  
+<% end %>

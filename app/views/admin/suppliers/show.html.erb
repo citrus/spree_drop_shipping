@@ -1,0 +1,10 @@
+<%= render :partial => 'admin/shared/supplier_tabs', :locals => {:current => "Supplier Details"} %>
+
+<h2><%= @supplier.name %></h2>
+
+<br class="clear" />
+  
+<p>
+  <%= link_to_edit @user %> &nbsp;
+  <%= link_to t('back'), collection_url %>
+</p>

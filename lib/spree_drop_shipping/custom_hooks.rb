@@ -1,7 +1,7 @@
 module SpreeDropShipping
   class CustomHooks < Spree::ThemeSupport::HookListener
     
-    #insert_after :account_summary, 'hooks/account_summary'
+    insert_after :admin_tabs, 'admin/shared/suppliers_tab'
 
   end
 end
