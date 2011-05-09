@@ -1,12 +1,14 @@
-Given /^I go to the admin suppliers page$/ do
-  #click_link("suppliers")
-  visit "/admin/suppliers" #admin_suppliers_path
-end
+Given /^I'm on the "([^"]*)" page$/ do |path|
 
-When /^I follow "([^"]*)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
+  path = "#{path.downcase.gsub(/\s/, '_')}_path".to_sym
+  
+  
+  puts Factory.create(:admin_user).inspect
 
-Then /^I should see "([^"]*)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  
+  begin 
+    visit send(path)
+  rescue 
+    puts 
+  end
 end
