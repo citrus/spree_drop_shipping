@@ -29,4 +29,31 @@ Feature: Admin suppliers interface
     Then I should see "Listing Suppliers"
     And I should see "Some Big Store"
     And I should see "successfully created" in the flash notice
+  
+  
+  Scenario: Updating an existing supplier
+    Given I have an existing supplier named "Some Big Store"
+    And I'm on the admin suppliers page
+    When I follow "Edit"
+    Then I should see "Editing Supplier"
+    And I should see "Supplier Details"
+    And I should see "Supplier Address"
+    When I fill in the following:
+      | Name          | Another Big Store        |
+      | Address       | 101 State St             |
+    When I press "Update"
+    Then I should see "Listing Suppliers"
+    And I should see "Another Big Store"
+    And I should see "successfully updated" in the flash notice
     
+  Scenario: Deleting an existing supplier
+    Given I have an existing supplier named "Some Big Store"
+    And I'm on the admin suppliers page
+    When I follow "Delete"
+    And I wait for 1 second
+    Then I should see "Are you sure?" in the popup message
+    And I wait for 1 second
+    When I confirm the popup message
+    And I wait for 2 seconds
+    Then I should see "successfully removed" in the flash notice
+    And I should not see "Some Big Store" in the index table    

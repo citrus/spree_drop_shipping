@@ -33,6 +33,20 @@ World(WithinHelpers)
 
 
 
+def get_parent(parent)
+  case parent.sub(/^the\s/, '')
+    when "main menu";     "#admin-menu"    
+    when "flash notice";  ".flash"
+    when "popup message"; "#popup_message"
+    when "popup buttons"; "#popup_panel"
+    when "index table";   "table.index"
+  end
+end
+
+
+
+
+
 #========================================================================
 # Givens
 
@@ -50,12 +64,33 @@ end
 # Actions
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
+  # wtf button text spree!
+  button = "#popup_ok" if button == "OK"
   click_button(button)
+end
+
+When /^I press "([^"]*)" in (.*)$/ do |button, parent|
+  # wtf button text spree!
+  button = "#popup_ok" if button == "OK"
+  within get_parent(parent) do
+    click_button(button)
+  end
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
+
+When /^I wait for (\d+) seconds?$/ do |seconds|
+  sleep seconds.to_f
+end
+
+
+When /^I confirm the popup message$/ do
+  find_by_id("popup_ok").click
+end
+
+
 
 
 #========================================================================
@@ -66,16 +101,21 @@ Then /^I should see "([^"]*)"$/ do |text|
 end
 
 Then /^I should see "([^"]*)" in (.*)$/ do |text, parent|
-  case parent
-    when "the main menu"
-      parent = "#admin-menu"    
-    when "the flash notice"
-      parent = ".flash"  
-  end
-  within parent do
+  within get_parent(parent) do
     assert page.has_content?(text)
   end
 end
+
+Then /^I should not see "([^"]*)"$/ do |text|
+  assert_not page.has_content?(text)
+end
+
+Then /^I should not see "([^"]*)" in (.*)$/ do |text, parent|
+  within get_parent(parent) do
+    assert_not page.has_content?(text)
+  end
+end
+
 
 
 #========================================================================
