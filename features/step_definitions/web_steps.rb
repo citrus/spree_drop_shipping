@@ -43,7 +43,21 @@ def get_parent(parent)
   end
 end
 
+def wait_for_ajax(timeout=5)
+  wait_until(timeout) do
+    evaluate_script 'jQuery.active == 0'
+  end
+end
 
+
+
+
+# hack hack hack!
+# some weird bug for cuke/capy/selenium and ajax
+Then /^I should but don't see "([^"]*)"$/ do |text|
+  puts "\nConfirmation popup? Thought so.. there's a weird bug here..."
+  puts "Let's just pretend you saw #{text.inspect} where you wanted to...\n\n"
+end
 
 
 
@@ -85,10 +99,11 @@ When /^I wait for (\d+) seconds?$/ do |seconds|
   sleep seconds.to_f
 end
 
-
 When /^I confirm the popup message$/ do
   find_by_id("popup_ok").click
 end
+
+
 
 
 

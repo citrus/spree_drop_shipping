@@ -76,4 +76,4 @@ Enjoy!
 License
 -------
 
-Copyright (c) 2011 Spencer Steffen, released under the New BSD License All rights reserved.
+Copyright (c) 2011 Spencer Steffen and Citrus, released under the New BSD License All rights reserved.
