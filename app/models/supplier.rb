@@ -7,7 +7,6 @@ class Supplier < ActiveRecord::Base
   has_many   :supplier_products
   has_many   :products, :through => :supplier_products
   
-  accepts_nested_attributes_for :address
     
   #==========================================
   # Validations
@@ -17,15 +16,19 @@ class Supplier < ActiveRecord::Base
   validates :name, :presence => true
   validates :phone, :presence => true
   validates :email, :presence => true, :uniqueness => true, :format => { :with => Devise.email_regexp }
-    
   
-  #def initialize(params)  
-  #  super params
-  #  address = Address.new
-  #end
     
-  #def valid?(options)
-  #  super(options) && address.valid?
-  #end
+  # Creates an address if the value given is a hash
+  def address=(value)
+    if value.is_a? Hash
+      value = Address.create(value)
+    end
+    write_attribute :address_id, value.id
+  end
+  
+  # Returns an existing address or a new one
+  def address
+    Address.find(read_attribute :address_id) rescue Address.new
+  end
   
 end

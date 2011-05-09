@@ -4,7 +4,6 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-require 'rubygems'
 require 'spork'
 
 ENV["RAILS_ROOT"] = File.expand_path("../../../test/dummy", __FILE__)
@@ -22,14 +21,11 @@ Spork.prefork do
   Capybara.default_driver   = :selenium
   Capybara.default_selector = :css
    
- include Warden::Test::Helpers 
-    
+  include Warden::Test::Helpers    
+  
 end
  
 Spork.each_run do
-
-  Dir["#{File.expand_path("../../../", __FILE__)}/test/support/**/*.rb"].each { |f| load f }
-
 
   # By default, any exception happening in your Rails application will bubble up
   # to Cucumber so that your scenario will fail. This is a different from how 
@@ -48,6 +44,9 @@ Spork.each_run do
   #
   ActionController::Base.allow_rescue = false
   
+  # doesn't seem to work :/
+  Cucumber::Rails::World.use_transactional_fixtures = false
+
   # Remove/comment out the lines below if your app doesn't have a database.
   # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
   begin
@@ -56,11 +55,11 @@ Spork.each_run do
     raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
   end
   
+  Dir["#{File.expand_path("../../../", __FILE__)}/test/support/**/*.rb"].each { |f| require f }
   
   Before do |s| 
     if s.feature.name.match(/^Admin\s/)
       @user = Factory.create(:admin_user)
-      sleep 0.25
       login_as @user
     end    
   end

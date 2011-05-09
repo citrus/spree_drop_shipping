@@ -9,15 +9,8 @@ class Admin::SuppliersController < Admin::ResourceController
   def new
     @supplier = Supplier.new
     @supplier.address = Address.new
-    puts @supplier.inspect
   end
-  
-  #create.after do
-  #  
-  #  puts "WTF!"
-  #  
-  #end
-  
+    
   private
   
     def load_data

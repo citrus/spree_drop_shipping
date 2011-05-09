@@ -54,15 +54,16 @@
   
   <legend><%= t('supplier address') %></legend>
   
-  <%= form.fields_for :address do |f| %>
-    
-    <%= f.inspect %>
-    
-    <p>
+  <%= form.fields_for @supplier.address do |f| %>
+        
+    <%= f.hidden_field :firstname, 'SUPPLIER' %>
+    <%= f.hidden_field :lastname, 'SUPPLIER' %>
+        
+    <%= f.field_container :address1 do %>
       <%= f.label :address1, t('supplier.address1') %><br />
       <%= f.text_field :address1, :class => 'text' %>
       <%= error_message_on :address, :address1 %>
-    </p>
+    <% end %>
     
     <%= f.field_container :address2 do %>
       <%= f.label :address2, t('supplier.address2') %><br />
@@ -76,10 +77,10 @@
       <%= error_message_on :address, :city %>
     <% end %>
     
-    <%= f.field_container :state do %>
-      <%= f.label :state, t('supplier.state') %><br />
-      <%= f.select :state, @state_options, :class => 'text' %>
-      <%= error_message_on :address, :state %>
+    <%= f.field_container :state_id do %>
+      <%= f.label :state_id, t('supplier.state') %><br />
+      <%= f.select :state_id, @state_options, :class => 'text' %>
+      <%= error_message_on :address, :state_id %>
     <% end %>
         
     <%= f.field_container :zipcode do %>
@@ -88,10 +89,10 @@
       <%= error_message_on :address, :zipcode %>
     <% end %>
     
-    <%= f.field_container :country do %>
-      <%= f.label :country, t('supplier.country') %><br />
-      <%= f.select :country, @country_options, :selected => @supplier.new_record? ? 214 : @supplier.address.country_id, :class => 'text' %>
-      <%= error_message_on :address, :country %>
+    <%= f.field_container :country_id do %>
+      <%= f.label :country_id, t('supplier.country') %><br />
+      <%= f.select :country_id, @country_options, :selected => @supplier.new_record? ? 214 : @supplier.address.country_id, :class => 'text' %>
+      <%= error_message_on :address, :country_id %>
     <% end %>
       
   <% end %>

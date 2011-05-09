@@ -1,6 +1,4 @@
-<% if @supplier.try(:errors).present? %>
-  <%= render 'shared/error_messages', :target => @supplier %>
-<% end %>
+<%= render 'shared/error_messages', :target => @supplier %>
 
 <%= form_for([:admin, @supplier]) do |f| %>
   <%= render "form", :form => f %>
