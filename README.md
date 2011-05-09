@@ -38,20 +38,26 @@ Clone this repo to where you develop, then run `rake test_prep` to get the show 
 
 Sweet. Now we can spork and open a new window to run the tests in...
 
-In one window:
+To run the cucumber features, boot spork like this:
 
-    spork
+    bundle exec spork
 
+Then, in another window, run:
+
+    bundle exec cucumber --drb
+    
+If you want to run shoulda tests, start spork with:
+
+    bundle exec spork TestUnit
+    
 In another window, run all tests:
 
-    testdrb test/**/*_test.rb
+    bundle exec testdrb test/**/*_test.rb
     
 Or just a specific test:
 
-    testdrb test/unit/supplier_test.rb
+    bundle exec testdrb test/unit/supplier_test.rb
   
-
-
 
 
 License

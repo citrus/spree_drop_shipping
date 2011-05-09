@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class SupplierProductTest < ActiveSupport::TestCase
 
   def setup
-    puts Product.first
+  
   end
   
   should validate_presence_of(:supplier_id)
