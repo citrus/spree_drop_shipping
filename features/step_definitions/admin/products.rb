@@ -1,3 +1,5 @@
-#Given /^I have an existing supplier named "([^"]*)"$/ do |name|
-#  Factory.create(:supplier, :name => name, :address => Factory.create(:address))
-#end
+Given /^supplier named "([^"]*)" is linked to the first product$/ do |name|
+  supplier = Supplier.find_by_name(name)
+  product  = Product.first
+  SupplierProduct.create(:supplier => supplier, :product => product)  
+end

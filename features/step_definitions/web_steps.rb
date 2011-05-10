@@ -73,6 +73,21 @@ Given /^I'm on the ((?!page).*) page$/ do |path|
   end
 end
 
+Given /^I'm on the ((?!page).*) page for (.*)$/ do |path, id|
+
+  case id
+    when "the first product"
+      id = Product.first.id
+  end
+
+  path = "#{path.downcase.gsub(/\s/, '_')}_path".to_sym
+  begin 
+    visit send(path, id)
+  rescue 
+    puts "#{path} could not be found!"
+  end
+end
+
 
 #========================================================================
 # Actions
