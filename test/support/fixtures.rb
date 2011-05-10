@@ -2,15 +2,6 @@ begin
   
   FactoryGirl.define do
   
-    factory :supplier do
-      name "Big Store"
-      email { Faker::Internet.email }
-      phone "800-555-5555"
-      url "example.com"
-      contact "Steve"
-      contact_phone "555-555-5555"
-    end
-    
     factory :address do
       firstname "SUPPLIER"
       lastname "SUPPLIER"
@@ -22,14 +13,25 @@ begin
       country { Country.find_by_name("United States") }
     end
     
+    factory :supplier do
+      name "Big Store"
+      email { Faker::Internet.email }
+      phone "800-555-5555"
+      url "example.com"
+      contact "Steve"
+      contact_phone "555-555-5555"
+      address { Factory.create(:address) }
+    end
+    
     factory :user do
       email { Faker::Internet.email }
       password "spree123"
       password_confirmation "spree123"
+      roles { [Role.find_or_create_by_name("user")] }
     end
   
-    factory :admin_user, :parent => :user do |u|
-      u.roles { [Role.find_or_create_by_name("admin")] }
+    factory :admin_user, :parent => :user do
+      roles { [Role.find_or_create_by_name("admin")] }
     end
   
   end
