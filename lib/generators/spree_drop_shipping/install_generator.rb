@@ -22,8 +22,11 @@ module SpreeDropShipping
       source_root File.expand_path("../../templates/db/migrate", __FILE__)
       
       def copy_migrations
-        migration_template "create_suppliers.rb", "db/migrate/create_suppliers.rb"
-        migration_template "create_supplier_products.rb", "db/migrate/create_supplier_products.rb"
+        
+        %w(create_suppliers create_supplier_products create_drop_ship_orders create_drop_ship_line_items).each do |m|      
+          migration_template "#{m}.rb", "db/migrate/#{m}.rb"
+        end
+        
       end
 
     end

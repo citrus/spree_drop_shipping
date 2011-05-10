@@ -11,9 +11,10 @@ class SupplierTest < ActiveSupport::TestCase
   should validate_presence_of(:email)
   should validate_presence_of(:phone)
   
+  should belong_to(:address)
   should have_many(:supplier_products)
   should have_many(:products)
-  should belong_to(:address)
+  should have_many(:drop_ship_orders)
     
   should "have a supplier model" do
     assert defined?(Supplier)

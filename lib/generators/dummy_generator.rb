@@ -20,8 +20,9 @@ class DummyGenerator < Rails::Generators::Base
   end
   
   # The name of the extension to be tested
+  # Defaults to the prarent folder name from lib/generators/dummy_generator.rb
   def extension
-    "spree_drop_shipping"
+    File.basename(File.expand_path("../../../", __FILE__))
   end  
   
   # The name, camelized
@@ -57,13 +58,13 @@ class DummyGenerator < Rails::Generators::Base
   
   # Runs the generator
   def run!
-    
+  
     # remove existing test app 
     FileUtils.rm_r(destination_path) if File.directory?(destination_path)
     
     # cd into the test dir and run the base app generator
     FileUtils.chdir "test" do
-      Rails::Generators::AppGenerator.start([name], { :verbose => false })
+      Rails::Generators::AppGenerator.start([name])
     end
     
     # cd into the new app and customize
