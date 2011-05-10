@@ -36,9 +36,6 @@ end
 
 desc "preps the testing environment"
 task :test_prep do
-  
   require 'generators/dummy_generator'
-  
   DummyGenerator.new.run!
-  
 end

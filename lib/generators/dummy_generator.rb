@@ -20,7 +20,7 @@ class DummyGenerator < Rails::Generators::Base
   end
   
   # The name of the extension to be tested
-  # Defaults to the prarent folder name from lib/generators/dummy_generator.rb
+  # Defaults to the parent folder name from lib/generators/dummy_generator.rb
   def extension
     File.basename(File.expand_path("../../../", __FILE__))
   end  
@@ -73,12 +73,12 @@ class DummyGenerator < Rails::Generators::Base
       run "rm -r public/index.html public/images/rails.png Gemfile README doc test vendor"
             
       # replace crucial templates
-      template "rails/boot.rb", "#{destination_path}/config/boot.rb", :force => true
+      template "rails/boot.rb",        "#{destination_path}/config/boot.rb",        :force => true
       template "rails/application.rb", "#{destination_path}/config/application.rb", :force => true    
       
       # install spree and migrate db
       run "rake spree_core:install spree_auth:install spree_sample:install"
-      run "rails g spree_drop_shipping:install"
+      run "rails g #{extension}:install"
       run "rake db:migrate RAILS_ENV=test"
       
       # add cucumber to database.yml
