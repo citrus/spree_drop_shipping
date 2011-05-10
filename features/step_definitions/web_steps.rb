@@ -131,6 +131,16 @@ Then /^I should not see "([^"]*)" in (.*)$/ do |text, parent|
   end
 end
 
+Then /^"([^"]*)" should equal "([^"]*)"$/ do |field, value| 
+  assert_equal value, find_field(field).value 
+end 
+
+Then /^"([^"]*)" should have "([^"]*)" selected$/ do |field, value| 
+  field = find_field(field)
+  has_match = field.text =~ /#{value}/
+  has_match = field.value =~ /#{value}/ unless has_match
+  assert has_match
+end 
 
 
 #========================================================================

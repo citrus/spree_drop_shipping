@@ -22,6 +22,9 @@ en:
     country: Country
   
   admin:
+    shared:
+      product_form_right: 
+        supplier: Drop Shipping Supplier
     suppliers:
       new:
         new_supplier: New Supplier

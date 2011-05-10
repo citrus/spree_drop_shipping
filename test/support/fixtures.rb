@@ -36,6 +36,6 @@ begin
   
 rescue FactoryGirl::DuplicateDefinitionError
   
-  puts "wtf! factories are already defined..."
+  puts "factories are already defined..."
   
 end

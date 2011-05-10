@@ -53,3 +53,8 @@ Feature: Admin suppliers interface
     Then I should see "Are you sure?" in the popup message
     When I confirm the popup message
     Then I should but don't see "successfully removed"
+    
+    # so you're wondering wtf, right? ya.. I can't figure out how to 
+    # make the confirmation popup ajax request to work..
+    
+    

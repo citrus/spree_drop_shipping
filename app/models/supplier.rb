@@ -4,7 +4,7 @@ class Supplier < ActiveRecord::Base
   # Associations
   
   belongs_to :address
-  has_many   :supplier_products
+  has_many   :supplier_products, :dependent => :destroy
   has_many   :products, :through => :supplier_products
   
     
