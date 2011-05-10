@@ -32,9 +32,11 @@ class Supplier < ActiveRecord::Base
   protected
   
     def save_address
-      address.phone = phone
-      address.save
-      write_attribute :address_id, address.id
+      unless address.nil?
+        address.phone = phone
+        address.save
+        write_attribute :address_id, address.id
+      end
     end
     
 end
