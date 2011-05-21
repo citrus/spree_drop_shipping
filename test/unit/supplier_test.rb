@@ -14,7 +14,7 @@ class SupplierTest < ActiveSupport::TestCase
   should belong_to(:address)
   should have_many(:supplier_products)
   should have_many(:products)
-  should have_many(:drop_ship_orders)
+  should have_many(:orders)
     
   should "have a supplier model" do
     assert defined?(Supplier)

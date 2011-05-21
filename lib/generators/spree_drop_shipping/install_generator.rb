@@ -19,12 +19,12 @@ module SpreeDropShipping
       end
       
       desc "Installs required migrations for spree_essentials"
-      source_root File.expand_path("../../templates/db/migrate", __FILE__)
+      source_root File.expand_path("../../templates", __FILE__)
       
       def copy_migrations
         
         %w(create_suppliers create_supplier_products create_drop_ship_orders create_drop_ship_line_items).each do |m|      
-          migration_template "#{m}.rb", "db/migrate/#{m}.rb"
+          migration_template "db/migrate/#{m}.rb", "db/migrate/#{m}.rb"
         end
         
       end

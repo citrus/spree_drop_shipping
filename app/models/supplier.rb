@@ -7,7 +7,7 @@ class Supplier < ActiveRecord::Base
   has_many   :supplier_products, :dependent => :destroy
   has_many   :products, :through => :supplier_products
   
-  has_many   :drop_ship_orders, :dependent => :nullify
+  has_many   :orders, :class_name => "DropShipOrder", :dependent => :nullify
   
     
   #==========================================
