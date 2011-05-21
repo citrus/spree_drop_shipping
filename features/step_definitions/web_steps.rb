@@ -2,8 +2,9 @@ require 'uri'
 require 'cgi'
 require File.expand_path("../../support/paths.rb", __FILE__)
 require File.expand_path("../../support/selectors.rb", __FILE__)
+require File.expand_path("../../../test/support/helper_methods.rb", __FILE__)
 
-
+include HelperMethods
 
 def get_parent(parent)
   case parent.sub(/^the\s/, '')
@@ -40,7 +41,7 @@ end
 Given /^I'm on the ((?!page).*) page for (.*)$/ do |path, id|
   case id
     when "the first product"
-      id = Product.first.id
+      id = Product.first
   end
   path = "#{path.downcase.gsub(/\s/, '_')}_path".to_sym
   begin 

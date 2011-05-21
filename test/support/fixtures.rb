@@ -15,7 +15,7 @@ begin
     
     factory :supplier do
       name "Big Store"
-      email { Faker::Internet.email }
+      email { random_email }
       phone "800-555-5555"
       url "example.com"
       contact "Steve"
@@ -24,7 +24,7 @@ begin
     end
     
     factory :user do
-      email { Faker::Internet.email }
+      email { random_email }
       password "spree123"
       password_confirmation "spree123"
       roles { [Role.find_or_create_by_name("user")] }
