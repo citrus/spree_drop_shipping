@@ -48,7 +48,7 @@ This will generate a fresh rails app in test/dummy, install spree & spree_drop_s
 
 To run the cucumber features, boot spork like this:
 
-    spork
+    bundle exec spork
 
 Then, in another window, run:
 
@@ -59,9 +59,9 @@ Then, in another window, run:
     
 If you want to run shoulda tests, start spork with:
 
-    spork TestUnit
+    bundle exec spork TestUnit
     #or 
-    spork t
+    bundle exec spork t
         
 In another window, run all tests:
 
