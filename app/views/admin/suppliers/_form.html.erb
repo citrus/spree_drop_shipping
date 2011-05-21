@@ -104,17 +104,13 @@
 
   $(document).ready(function() {
     $('#address_country').change(function(evt) {
-	    
-	    console.log(this.options[this.selectedIndex].value);
-	    
 	    if (this.options[this.selectedIndex].value == 214) {
 	      $('#address_state').remove();
         $('#address_state_select').attr('id', 'address_state').show();
 	    } else {    
   	    var p = $('#address_state').hide().attr('id', 'address_state_select').parent('p');
   	    p.append('<input type="text" name="address[state]" id="address_state" class="text" />');
-  	  }
-	    
+  	  }	    
     });
   });
    

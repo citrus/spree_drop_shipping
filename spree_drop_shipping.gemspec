@@ -25,6 +25,9 @@ Gem::Specification.new do |s|
   s.add_dependency('spree_auth', '>= 0.50.2')
   
   # Development
+  
+  s.add_development_dependency('dummier',          '>= 0.1.0')
+  
   s.add_development_dependency('spree_sample',     '>= 0.50.2')
   s.add_development_dependency('shoulda',          '>= 2.11.3')
 	s.add_development_dependency('spork',            '>= 0.9.0.rc5')

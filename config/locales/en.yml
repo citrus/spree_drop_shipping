@@ -25,6 +25,7 @@ en:
     shared:
       product_form_right: 
         supplier: Drop Shipping Supplier
+        none: --- none ---
     suppliers:
       new:
         new_supplier: New Supplier
