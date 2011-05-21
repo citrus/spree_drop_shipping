@@ -7,7 +7,6 @@ rescue LoadError
 end
 
 require 'rake'
-require 'rake/rdoctask'
 require 'rake/testtask'
 
 Bundler::GemHelper.install_tasks
@@ -25,17 +24,3 @@ Cucumber::Rake::Task.new do |t|
 end
 
 task :default => [ :test, :cucumber ]
-
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'SpreeDropShipping'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
-
-desc "preps the testing environment"
-task :test_prep do
-  require 'generators/dummy_generator'
-  DummyGenerator.new.run!
-end

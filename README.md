@@ -34,7 +34,13 @@ You should be up and running now! - except that this gem doesn't do anything yet
 Testing
 -------
 
-Clone this repo to where you develop, then run `rake test_prep` to get the show started. This will generate a fresh rails app in test/dummy, install spree & spree_drop_shipping, then migrate the test database...
+Clone this repo to where you develop, bundle up, then run `bundle exec dummier' to get the show started. This will generate a fresh rails app in test/dummy, install spree & spree_drop_shipping, then migrate the test database...
+
+    git clone git://github.com/citrus/spree_drop_shipping.git
+    cd spree_drop_shipping
+    bundle install
+    bundle exec dummier
+
 
 Sweet. Now we can spork and open a new window to run the tests in...
 
