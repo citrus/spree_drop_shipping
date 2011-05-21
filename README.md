@@ -34,7 +34,6 @@ And reboot your server:
 You should be up and running now! - except that this gem doesn't do anything yet hahahaha!
 
 
-
 Testing
 -------
 
@@ -89,12 +88,13 @@ If you don't want to spork, just use rake:
     # both
     rake 
   
+POW!
 
 
 Demo
 ----
 
-You can easily use the test/dummy app as a demo of spree_drop_shipping. Just clone the repo and run:
+You can easily use the test/dummy app as a demo of spree_drop_shipping. Just `cd` to where you develop and run:
 
     git clone git://github.com/citrus/spree_drop_shipping.git
     cd spree_drop_shipping
@@ -112,6 +112,7 @@ You can also enable the `after_migrate` [dummier](https://github.com/citrus/dumm
     bundle exec dummier
     cd test/dummy
     rails s
+    
     
 Now you can rinse and repeat with:
 
