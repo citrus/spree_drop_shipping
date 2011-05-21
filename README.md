@@ -26,6 +26,10 @@ Then migrate your database:
 
     rake db:migrate
     
+And reboot your server:
+  
+    rails s
+    
     
 You should be up and running now! - except that this gem doesn't do anything yet hahahaha!
 
@@ -101,14 +105,33 @@ You can easily use the test/dummy app as a demo of spree_drop_shipping. Just clo
     rails s
     
     
-You can also enable the `after_migrate` [dummier](https://github.com/citrus/dummier) hook by renaming `after_migrate.rb.sample` to `after_migrate.rb.sample` in `lib/dummy_hooks` then re-run `bundle exec dummier`:
+You can also enable the `after_migrate` [dummier](https://github.com/citrus/dummier) hook by renaming `after_migrate.rb.sample` to `after_migrate.rb` in `lib/dummy_hooks` then re-run `bundle exec dummier`. In other words, just do this:
 
     cd spree_drop_shipping
     mv lib/dummy_hooks/after_migrate.rb.sample lib/dummy_hooks/after_migrate.rb
     bundle exec dummier
+    cd test/dummy
+    rails s
+    
+Now you can rinse and repeat with:
+
+    # from test/dummy
+    cd ../../
+    bundle exec dummier
+    cd test/dummy
+    rails s
+    
+    
+So fresh and so clean, clean...
 
 
-Enjoy!
+Contributors
+------------
+
+So far it's just me; Spencer Steffen. 
+
+If you'd like to help out feel free to fork and send me pull requests!
+
 
 License
 -------
