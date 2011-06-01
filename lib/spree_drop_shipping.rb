@@ -1,6 +1,6 @@
 require 'spree_core'
 require 'spree_auth' 
-require 'spree_sample'
+require 'spree_sample' unless Rails.env == 'production'
 
 require 'spree_drop_shipping/custom_hooks'
 
