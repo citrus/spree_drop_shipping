@@ -5,7 +5,7 @@ class Admin::SuppliersController < Admin::ResourceController
   create.before :attach_address
     
 	def index
-	   #  render :template => request.xhr? ? 'admin/uploads/picker' : 'admin/uploads/index', :layout => !request.xhr?
+	  # render :template => request.xhr? ? 'admin/uploads/picker' : 'admin/uploads/index', :layout => !request.xhr?
   end
   
   def new
@@ -16,7 +16,6 @@ class Admin::SuppliersController < Admin::ResourceController
   def attach_address
     @supplier.address = Address.new(params[:address])
   end
-    
     
   private
   
