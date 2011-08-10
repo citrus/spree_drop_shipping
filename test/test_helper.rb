@@ -10,7 +10,7 @@ Spork.prefork do
   require "shoulda"
   require "factory_girl"
   require "sqlite3"
-  require "faker"
+  require "turn"
   
   #require "cucumber/rails"
   require "capybara/rails"
