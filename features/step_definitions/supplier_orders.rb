@@ -1,15 +1,18 @@
-Given /^I'm placing an order for a drop shippable product$/ do
-
-  product = Product.first
-  visit(product_path(product))
+def visit_first_product
+  @product = Product.first
+  visit(product_path(@product))
   click_button("Add To Cart")
-  assert has_content?(product.name)
-  
+  assert has_content?(@product.name)
+end
+
+def click_checkout
   # click the checkout button
   btn = find(:xpath, '//a[@class="button checkout primary"][last()]')
-  assert_equal "Checkout", btn.text
+  assert_equal "checkout", btn.text
   btn.click
-  
+end
+
+def register_as_quest
   # fill in the registration step if necessary
   if has_selector? "#guest_checkout"
     within "#guest_checkout" do
@@ -17,7 +20,9 @@ Given /^I'm placing an order for a drop shippable product$/ do
     end
     click_button "Continue"
   end
-  
+end
+
+def complete_billing_form
   # fill in the billing info
   within "#billing" do
     fill_in "First Name", :with => "Joe"
@@ -29,28 +34,49 @@ Given /^I'm placing an order for a drop shippable product$/ do
     select("United States", :from => "Country")
     fill_in "Phone", :with => Faker::PhoneNumber.phone_number
   end
+end
+
+def use_billing_for_shipping
   check "order_use_billing"
-  click_button "Save and Continue"
-  
+end
+
+def select_shipping_method(method="UPS Ground")
   # select shipping method
   assert has_content?("Shipping Method")
-  choose "UPS Ground"
-  click_button "Save and Continue"
+  choose method
+end
 
+def complete_credit_card_form
   # create a payment
   within "#payment-methods" do
     fill_in "card_number", :with => "4111111111111111"
     fill_in "card_code",   :with => "123"
   end
-  click_button "Save and Continue"
-  
-  # confirm payment
-  assert has_content?("Confirm")
-  assert has_content?(product.name)
+end
 
+def save_and_continue
+  click_button "Save and Continue"
+end
+
+
+
+Given /^I'm placing an order for the first product$/ do
+  visit_first_product
+  click_checkout
+  register_as_quest
+  complete_billing_form
+  use_billing_for_shipping
+  save_and_continue
+  select_shipping_method
+  save_and_continue
+  complete_credit_card_form
+  save_and_continue
 end
 
 Given /^I'm on the order confirmation step$/ do
+  # confirm payment
+  assert has_content?("Confirm")
+  assert has_content?(@product.name)
   assert_equal "/checkout/confirm", current_path
 end
 
