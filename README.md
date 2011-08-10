@@ -13,7 +13,7 @@ Spree Drop Shipping
 
 So the main goal with spree_drop_shipping is to link products to suppliers, and send batched orders to suppliers at the end of the day. 
 
-In more detail, when an order is placed for a product that has a drop ship supplier, it will get added to its supplier's 'order cue'. The order cues will process daily sending orders to each supplier via email. Suppliers will be able to view their orders on the site and confirm that they've been received, billed and shipped. So far I've got the suppliers admin and product-linking in place, and I've started work on the order portion. Development is being done with [cucumber](https://github.com/cucumber/cucumber), [shoulda](https://github.com/thoughtbot/shoulda), [dummier](https://github.com/citrus/dummier) and [spork](https://github.com/timcharper/spork) should you decide to join...
+In more detail, when an order is placed for a product that has a drop ship supplier, it will get added to its supplier's 'order queue'. The order queues will process daily sending orders to each supplier via email. Suppliers will be able to view their orders on the site and confirm that they've been received, billed and shipped. So far I've got the suppliers admin and product-linking in place, and I've started work on the order portion. Development is being done with [cucumber](https://github.com/cucumber/cucumber), [shoulda](https://github.com/thoughtbot/shoulda), [dummier](https://github.com/citrus/dummier) and [spork](https://github.com/timcharper/spork) should you decide to join...
 
 
 Installation
@@ -149,4 +149,4 @@ If you'd like to help out feel free to fork and send me pull requests!
 License
 -------
 
-Copyright (c) 2011 Spencer Steffen and Citrus, released under the New BSD License All rights reserved.
+Copyright (c) 2011 Spencer Steffen and Citrus, released under the New BSD License. All rights reserved.
