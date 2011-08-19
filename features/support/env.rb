@@ -4,9 +4,7 @@ ENV["RAILS_ROOT"] = File.expand_path("../../../test/dummy", __FILE__)
  
 Spork.prefork do
   require 'cucumber/rails'
-  #require 'capybara/rails'
   require 'capybara/cucumber'
-  #require 'capybara/session'
   require 'factory_girl'
   require 'faker'
   
@@ -15,7 +13,7 @@ Spork.prefork do
   Capybara.default_driver   = :selenium
   Capybara.default_selector = :css
    
-  #include Warden::Test::Helpers    
+  include Warden::Test::Helpers    
   
   ActionController::Base.allow_rescue = false
   Cucumber::Rails::World.use_transactional_fixtures = false
@@ -33,10 +31,10 @@ Spork.each_run do
     fixtures = Dir[File.join(fixtures_folder, '*.yml')].map {|f| File.basename(f, '.yml') }
     Fixtures.create_fixtures(fixtures_folder, fixtures)
     
-    #if s.feature.name.match(/^Admin\s/)
-    #  @user = Factory.create(:admin_user)
-    #  login_as @user
-    #end    
+    if s.feature.name.match(/^Admin\s/)
+      @user = Factory.create(:admin_user)
+      login_as @user
+    end    
     
   end
 
