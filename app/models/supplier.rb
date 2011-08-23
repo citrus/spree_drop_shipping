@@ -14,12 +14,10 @@ class Supplier < ActiveRecord::Base
   # Validations
   
   validates_associated :address
-  validates :address_id, :presence => true
-  validates :name, :presence => true
-  validates :phone, :presence => true
-  validates :email, :email => true
-  
-  
+  validates :address_id, :name, :phone, :presence => true
+  validates :email, :presence => true, :email => true
+  validates :url, :url => true
+
   #==========================================
   # Callbacks
   
@@ -30,7 +28,7 @@ class Supplier < ActiveRecord::Base
   
   #==========================================
   # Methods
-  
+    
   protected
   
     def save_address

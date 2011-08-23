@@ -17,7 +17,7 @@ begin
       name "Big Store"
       email { random_email }
       phone "800-555-5555"
-      url "example.com"
+      url "http://example.com"
       contact "Steve"
       contact_phone "555-555-5555"
       address { Factory.create(:address) }

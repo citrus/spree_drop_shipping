@@ -5,6 +5,17 @@ en:
   successfully_removed: %{resource} was successfully removed.
 
 
+  activerecord:
+    errors:
+      models:
+        supplier:
+          attributes:
+            email:
+              invalid: is invalid
+            url:
+              invalid: is invalid. Please be sure to include include 'http://'
+              not_responding: is invalid, not responding or redirecting to another location
+  
   supplier:
     name: Name
     email: Email
