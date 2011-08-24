@@ -1,0 +1,10 @@
+<% for i in 1..5 do%>
+supplier_<%= i %>:
+  name: <%= "Big Store #{i}" %>
+  email: <%= "big.store.#{i}@example.com" %>
+  phone: "800-555-5555"
+  url: <%= "http://#{i}.example.com" %>
+  contact: "Steve"
+  contact_phone: "555-555-5555"
+  address: billing_address
+<% end %>

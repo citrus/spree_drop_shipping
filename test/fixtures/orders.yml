@@ -1,3 +1,25 @@
+<%
+order_date = Time.now
+1.upto(10) do |i|
+order_date -= rand(12).hours
+item_total =  "#{1 + rand(400)}.#{rand(100)}".to_f
+charges_total = "#{1 + rand(30)}.#{rand(100)}".to_f
+%>
+order_<%= i %>:
+  number: <%= "R#{Array.new(9){rand(9)}.join}" %>
+  user: user_<%= i %>
+  state: complete
+  email: <%= "order#{i}@example.com" %>
+  item_total: <%= item_total %>
+  created_at: <%=order_date.to_s(:db)%>
+  completed_at: <%=order_date.to_s(:db)%>
+  total: <%= item_total + charges_total %>
+  adjustment_total: <%= charges_total %>
+  ship_address: ship_address_<%= i %>
+  bill_address: bill_address_<%= i %>
+<% end %>
+
+
 incomplete:
   id: 1069267039
   user_id: 1057526560
@@ -18,8 +40,8 @@ incomplete:
   payment_state: 'balance_due'
   email: 'spree@example.com'
   special_instructions: NULL
-  
-complete:
+
+pending:
   id: 1069267040
   user_id: 1057526560
   number: R107687411
@@ -27,15 +49,36 @@ complete:
   total: 29.01
   created_at: 2011-01-12 03:07:39
   updated_at: 2011-01-12 03:07:39
-  state: cart
+  state: confirm
   adjustment_total: 0.00
   credit_total: 0.00
   completed_at: NULL
-  bill_address_id: NULL
-  ship_address_id: NULL
+  bill_address_id: 234234234
+  ship_address_id: 324234234
   payment_total: 0.00
-  shipping_method_id: NULL
+  shipping_method_id: 2425245
   shipment_state: NULL
-  payment_state: 'balance_due'
+  payment_state: 'pending'
+  email: 'spree@example.com'
+  special_instructions: NULL
+  
+complete:
+  id: 1069267041
+  user_id: 1057526560
+  number: R107687412
+  item_total: 29.01
+  total: 29.01
+  created_at: 2011-01-12 03:07:39
+  updated_at: 2011-01-12 03:07:39
+  state: complete
+  adjustment_total: 0.00
+  credit_total: 0.00
+  completed_at: <%= Time.now - 5.hours %>
+  bill_address_id: 2342342
+  ship_address_id: 2342342
+  payment_total: 0.00
+  shipping_method_id: 25425245
+  shipment_state: NULL
+  payment_state: 'completed'
   email: 'spree@example.com'
   special_instructions: NULL

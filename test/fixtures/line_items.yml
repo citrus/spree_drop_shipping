@@ -1,0 +1,21 @@
+<% for i in 1..5 do%>
+li_<%= i %>:
+  order: order_<%= i %>
+  variant: ror_tote_v
+  quantity: <%= rand(4) + 1 %>
+  price: 15.99
+<% end %>
+
+ds_li_1:
+  supplier: supplier_1
+  order: order_1
+  variant: ds_ror_bag_v
+  quantity: <%= rand(4) + 1 %>
+  price: 15.99
+
+ds_li_2:
+  supplier: supplier_2
+  order: order_2
+  variant: ds_ror_mug_v
+  quantity: <%= rand(4) + 1 %>
+  price: 15.99

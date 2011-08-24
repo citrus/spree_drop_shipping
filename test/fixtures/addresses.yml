@@ -1,4 +1,4 @@
-billing:
+billing_address:
   firstname: Bill
   lastname: Billerman
   address1: 1027 State St
@@ -10,7 +10,7 @@ billing:
   phone: 555-555-1027
 
 
-shipping:
+shipping_address:
   firstname: Boxy
   lastname: Shipperman
   address1: 1000 State St

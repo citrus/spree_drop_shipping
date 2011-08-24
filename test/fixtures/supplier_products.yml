@@ -1,0 +1,7 @@
+ror_bag_supplier_1:
+  supplier: supplier_1
+  product: ds_ror_bag
+
+ror_mug_supplier_2:
+  supplier: supplier_2
+  product: ds_ror_mug
