@@ -17,10 +17,11 @@ LineItem.class_eval do
   
   def drop_ship_attributes
     { 
-      :sku      => variant ? variant.sku : nil,
-      :name     => variant && variant.product ? variant.product.name : nil,
-      :quantity => quantity,
-      :price    => price
+      :variant_id => variant_id,
+      :sku        => variant ? variant.sku : nil,
+      :name       => variant && variant.product ? variant.product.name : nil,
+      :quantity   => quantity,
+      :price      => price
     }
   end
   

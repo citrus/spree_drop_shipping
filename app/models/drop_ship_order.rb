@@ -5,6 +5,9 @@ class DropShipOrder < ActiveRecord::Base
 
   validates :supplier_id, :presence => true
 
+  
+  before_save :update_total
+
 
   state_machine :initial => 'active' do
   
@@ -24,6 +27,7 @@ class DropShipOrder < ActiveRecord::Base
       transition :recieved => :complete
     end 
        
+       
   end
   
   
@@ -35,6 +39,12 @@ class DropShipOrder < ActiveRecord::Base
       attributes << items.first.drop_ship_attributes.update(:quantity => quantity)
     end
     self.line_items.create(attributes)
+    self.save
+  end
+  
+  
+  def update_total
+    self.total = self.line_items.reload.map(&:subtotal).inject(:+).to_f
   end
   
 

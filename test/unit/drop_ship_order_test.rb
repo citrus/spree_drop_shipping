@@ -18,6 +18,10 @@ class DropShipOrderTest < ActiveSupport::TestCase
       @dso.respond_to?(:add)
     end
    
+    should "calcluate total when empty" do
+      assert_equal 0.0, @dso.update_total
+    end
+   
   end
   
   
@@ -41,6 +45,12 @@ class DropShipOrderTest < ActiveSupport::TestCase
       assert_equal quantity, @dso.line_items.last.quantity
     end
     
+    should "add items and update total" do
+      @line_items = [ line_items(:ds_li_1), line_items(:ds_li_1), line_items(:ds_li_1) ]
+      price = @line_items.map{|li| li.quantity * li.price }.inject(:+)
+      @dso.add(@line_items)
+      assert_equal price, @dso.total
+    end
     
   end
   
