@@ -24,3 +24,47 @@ Cucumber::Rake::Task.new do |t|
 end
 
 task :default => [ :test, :cucumber ]
+
+desc "Link suppliers to products (for debugging)"
+task :setup_suppliers do
+
+  env = File.expand_path("../test/dummy/config/environment.rb", __FILE__)
+  unless File.exists?(env)
+    
+    puts "Please make sure test/dummy exists! Try running `bundle exec dummier`"
+    
+  else
+    
+    require env
+    
+    if 0 == Supplier.count  
+      require "factory_girl"
+      require File.expand_path("../test/support/helper_methods.rb", __FILE__)
+      require File.expand_path("../test/support/factories.rb", __FILE__)
+      include HelperMethods
+      Factory.create(:supplier)
+    end
+     
+    puts "Randomly linking Products & Suppliers..."
+    puts "| `*` = new link | `-` = already linked |" 
+    @supplier_ids = Supplier.select('id').all.shuffle
+    @products     = Product.all
+    count         = 0
+    
+    @products.each do |product|
+      unless product.has_supplier?
+        product.create_supplier_product(:supplier_id => @supplier_ids[rand(@supplier_ids.length)])
+        count += 1 
+        print "*"
+      else
+        print "-"
+      end
+    end
+    puts
+    
+    puts "#{count} products linked."
+  
+  end
+
+
+end
