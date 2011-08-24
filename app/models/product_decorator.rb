@@ -5,7 +5,7 @@ Product.class_eval do
   
   # Returns true if the product has a drop shipping supplier
   def has_supplier?
-    !supplier.nil?  
+    supplier_product.present? && supplier.present?
   end
   
 end
