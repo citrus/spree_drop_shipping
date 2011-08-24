@@ -9,10 +9,9 @@ Admin::ProductsController.class_eval do
       return unless @supplier
       unless @product.has_supplier? && @product.supplier == @supplier
         @product.supplier_product.destroy if @product.has_supplier?
-        @product.supplier = @supplier #.create(:product_id => @product.id, :supplier_id => params[:supplier_id])
+        @supplier.supplier_products.create(:product_id => @product.id)
       end
     elsif @product.has_supplier?
-      # remove supplier if the param is blank
       @product.supplier_product.destroy
     end
   end
