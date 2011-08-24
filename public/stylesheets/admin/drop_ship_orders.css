@@ -1,0 +1,15 @@
+table.index tr.totals td {
+  padding: 10px;
+  background-color: #f9f9f9;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: right;
+  line-height: 17px;
+}
+
+table.index tr.totals td span.total {
+  margin-left: 10px;
+  font-size: 17px;
+}
+
+
