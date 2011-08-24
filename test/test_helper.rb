@@ -5,25 +5,18 @@ require 'spork'
 Spork.prefork do
   
   require File.expand_path("../dummy/config/environment.rb",  __FILE__)
-  #Bundler.require(:development, :test)
   require "rails/test_help"
   require "shoulda"
   require "factory_girl"
   require "sqlite3"
   require "turn"
   
-  #require "cucumber/rails"
-  require "capybara/rails"
-  require "selenium/webdriver"
   
   ActionMailer::Base.delivery_method    = :test
   ActionMailer::Base.perform_deliveries = true
   ActionMailer::Base.default_url_options[:host] = "example.com"
   
   Rails.backtrace_cleaner.remove_silencers!
-  
-  Capybara.default_driver   = :selenium
-  Capybara.default_selector = :css
   
   # Run any available migration if needed
   ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)

@@ -29,6 +29,11 @@ begin
       password_confirmation "spree123"
       roles { [Role.find_or_create_by_name("user")] }
     end
+    
+    factory :drop_ship_order do
+      supplier { Factory.create(:supplier) }
+      total 0
+    end
   
     factory :admin_user, :parent => :user do
       roles { [Role.find_or_create_by_name("admin")] }
