@@ -42,18 +42,18 @@ task :setup_suppliers do
       require File.expand_path("../test/support/helper_methods.rb", __FILE__)
       require File.expand_path("../test/support/factories.rb", __FILE__)
       include HelperMethods
-      Factory.create(:supplier)
+      %w(Supplier1 Supplier2 Supplier3).each {|name| Factory.create(:supplier, :name => name, :email => "#{name}@example.com") }
     end
      
     puts "Randomly linking Products & Suppliers..."
     puts "| `*` = new link | `-` = already linked |" 
-    @supplier_ids = Supplier.select('id').all.shuffle
+    @supplier_ids = Supplier.select('id').all.map(&:id).shuffle
     @products     = Product.all
     count         = 0
     
     @products.each do |product|
       unless product.has_supplier?
-        product.create_supplier_product(:supplier_id => @supplier_ids[rand(@supplier_ids.length)])
+        SupplierProduct.create(:product_id => product.id, :supplier_id => @supplier_ids[rand(@supplier_ids.length)])
         count += 1 
         print "*"
       else
