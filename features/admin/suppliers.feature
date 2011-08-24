@@ -1,6 +1,10 @@
 @no-txn
 Feature: Admin suppliers interface
   
+  In order to send orders to suppliers
+  As an admin
+  I want to manage product suppliers
+  
   Scenario: Visiting admin suppliers index
     Given I'm on the admin products page
     Then I should see "Suppliers" in the main menu

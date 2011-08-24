@@ -1,8 +1,10 @@
 @no-txn
 Feature: Admin products and suppliers
-  Ensures a product can be linked to a supplier
-  Assumes we have some products in the database
-  
+
+  In order to tell suppliers which products were ordered
+  As an admin
+  I want to link products to suppliers
+    
   Scenario: Linking a product to a supplier
     Given I have an existing supplier named "Some Big Store"
     And I'm on the admin products page

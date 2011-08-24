@@ -4,9 +4,7 @@ ENV["RAILS_ROOT"] = File.expand_path("../../../test/dummy", __FILE__)
  
 Spork.prefork do
   require 'cucumber/rails'
-  require 'capybara/cucumber'
   require 'factory_girl'
-  require 'faker'
   
   I18n.reload!
   
@@ -16,8 +14,10 @@ Spork.prefork do
   include Warden::Test::Helpers    
   
   ActionController::Base.allow_rescue = false
+  
   Cucumber::Rails::World.use_transactional_fixtures = false
   DatabaseCleaner.strategy = :truncation 
+  
 end
  
 Spork.each_run do
@@ -35,7 +35,7 @@ Spork.each_run do
       @user = Factory.create(:admin_user)
       login_as @user
     end    
-    
-  end
+  
+  end  
 
 end
