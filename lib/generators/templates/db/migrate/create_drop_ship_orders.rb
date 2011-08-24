@@ -6,6 +6,7 @@ class CreateDropShipOrders < ActiveRecord::Migration
       t.float      :total
       t.datetime   :sent_at
       t.datetime   :recieved_at
+      t.datetime   :processed_at
       t.string     :state, :default => "active"
       t.timestamps
     end
