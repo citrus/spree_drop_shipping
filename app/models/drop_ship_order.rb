@@ -36,7 +36,11 @@ class DropShipOrder < ActiveRecord::Base
     attributes = []
     new_items.group_by(&:variant_id).each do |variant_id, items|
       quantity = items.map(&:quantity).inject(:+)
-      attributes << items.first.drop_ship_attributes.update(:quantity => quantity)
+      if item = self.line_items.find_by_variant_id(variant_id)
+        item.update_attributes(:quantity => item.quantity + quantity)
+      else
+        attributes << items.first.drop_ship_attributes.update(:quantity => quantity)
+      end
     end
     self.line_items.create(attributes)
     self.save

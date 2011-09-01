@@ -34,6 +34,13 @@ begin
       supplier { Factory.create(:supplier) }
       total 0
     end
+    
+    factory :line_item do
+      variant_id { Variant.first.id }
+      supplier_id { Variant.first.product.supplier.id }
+      quantity 1
+      price 15.99
+    end
   
     factory :admin_user, :parent => :user do
       roles { [Role.find_or_create_by_name("admin")] }

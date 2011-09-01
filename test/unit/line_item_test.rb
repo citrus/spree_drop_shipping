@@ -7,7 +7,7 @@ class LineItemTest < ActiveSupport::TestCase
   end
   
   should "provide drop ship attributes" do
-    hash = { :sku => nil, :name => nil, :quantity => nil, :price => nil }
+    hash = { :variant_id => nil, :sku => nil, :name => nil, :quantity => nil, :price => nil }
     assert_equal hash, subject.drop_ship_attributes
   end
   

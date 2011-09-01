@@ -38,11 +38,31 @@ class DropShipOrderTest < ActiveSupport::TestCase
       assert_equal 1, @dso.line_items.count
     end
     
-    should "group line line items and increment quantity" do
+    should "group line items and increment quantity" do
       @line_items = [ line_items(:ds_li_1), line_items(:ds_li_1), line_items(:ds_li_1) ]
       quantity = @line_items.map(&:quantity).inject(:+)
       @dso.add(@line_items)
       assert_equal quantity, @dso.line_items.last.quantity
+    end
+    
+    should "increment quantity of items already in order" do
+      @line_item = Factory.build(:line_item)
+      @dso.add(@line_item)
+      @dso.add(@line_item)
+      count = @dso.line_items.count
+      quantity = @dso.line_items.first.quantity
+      assert_equal 1, count
+      assert_equal 2, quantity
+    end
+    
+    should "increment quantity of grouped items already in order" do
+      @line_items = [ Factory.build(:line_item), Factory.build(:line_item) ]
+      @dso.add(@line_items)
+      @dso.add(@line_items)
+      count = @dso.line_items.count
+      quantity = @dso.line_items.first.quantity
+      assert_equal 1, count
+      assert_equal 4, quantity
     end
     
     should "add items and update total" do
