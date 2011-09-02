@@ -32,6 +32,10 @@ class Supplier < ActiveRecord::Base
     @active_order 
   end
   
+  def email_with_name
+    "#{name} <#{email}>"
+  end
+  
   
   #==========================================
   # Methods

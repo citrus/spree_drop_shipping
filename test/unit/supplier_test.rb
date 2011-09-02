@@ -61,4 +61,16 @@ class SupplierTest < ActiveSupport::TestCase
     
   end
   
+  context "An existing supplier" do
+    
+    setup do 
+      @supplier = Factory.create(:supplier)
+    end
+    
+    should "return email address with name" do
+      assert_equal "#{@supplier.name} <#{@supplier.email}>", @supplier.email_with_name
+    end
+    
+  end
+  
 end
