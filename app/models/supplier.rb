@@ -27,9 +27,6 @@ class Supplier < ActiveRecord::Base
   
   def active_order
     @active_order ||= self.active_drop_ship_order ? self.active_drop_ship_order : self.create_active_drop_ship_order
-    #puts "ACTIVE:"
-    #puts @active_order.inspect
-    @active_order 
   end
   
   def email_with_name
