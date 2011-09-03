@@ -2,6 +2,10 @@ require_relative '../test_helper'
 
 class DropShipOrderTest < ActiveSupport::TestCase
 
+  setup do
+    ActionMailer::Base.deliveries = []
+  end
+
   should belong_to(:supplier)
   should have_many(:line_items)
 
@@ -94,12 +98,16 @@ class DropShipOrderTest < ActiveSupport::TestCase
       
       should "move to the 'sent' state" do
         assert_equal "sent", @dso.state
-      end      
+      end
   
       should "set sent at" do
         assert_not_nil @dso.sent_at
       end
-      
+
+      should "send order to supplier" do
+        assert_equal @dso.supplier.email, ActionMailer::Base.deliveries.last.to.first
+      end
+            
       context "and recieved" do
       
         setup do

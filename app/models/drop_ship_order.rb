@@ -1,17 +1,27 @@
 class DropShipOrder < ActiveRecord::Base
-
+  
+  #==========================================
+  # Associations
+  
   belongs_to :supplier
   has_many   :line_items, :class_name => "DropShipLineItem"
-
+  
+  #==========================================
+  # Validations
+  
   validates :supplier_id, :presence => true
 
+  #==========================================
+  # Callbacks
   
   before_save :update_total
 
-
+  #==========================================
+  # State Machine
+  
   state_machine :initial => 'active' do
   
-    before_transition :on => :deliver, :do => :set_sent_at
+    before_transition :on => :deliver, :do => :perform_delivery
     before_transition :on => :recieve, :do => :set_recieved_at
     before_transition :on => :process, :do => :set_processed_at
   
@@ -26,11 +36,16 @@ class DropShipOrder < ActiveRecord::Base
     event :process do
       transition :recieved => :complete
     end 
-       
-       
+    
   end
   
+    
+  #==========================================
+  # Instance Methods  
   
+  # Adds line items to the drop ship order. This method will group similar line items
+  # and update quantities as necessary. You can add a single line item or an array of
+  # line items.
   def add(new_items)
     new_items = [ new_items ].flatten.reject{|li| li.supplier_id.nil? || li.supplier_id != self.supplier_id }
     attributes = []
@@ -46,23 +61,27 @@ class DropShipOrder < ActiveRecord::Base
     self.save
   end
   
-  
+  # Updates the drop ship order's total by getting the sum of its line items' subtotals
   def update_total
     self.total = self.line_items.reload.map(&:subtotal).inject(:+).to_f
   end
   
-
+  
+  #==========================================
+  # Private Methods
+  
   private
   
-    def set_sent_at
+    def perform_delivery # :nodoc:
       self.sent_at = Time.now
+      puts DropShipOrderMailer.supplier_order(self).deliver!
     end
     
-    def set_recieved_at
+    def set_recieved_at # :nodoc:
       self.recieved_at = Time.now
     end
     
-    def set_processed_at
+    def set_processed_at # :nodoc:
       self.processed_at = Time.now
     end  
 
