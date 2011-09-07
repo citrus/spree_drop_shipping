@@ -3,6 +3,7 @@ class DropShipOrder < ActiveRecord::Base
   #==========================================
   # Associations
   
+  belongs_to :order
   belongs_to :supplier
   has_many   :line_items, :class_name => "DropShipLineItem"
   
@@ -58,7 +59,7 @@ class DropShipOrder < ActiveRecord::Base
       end
     end
     self.line_items.create(attributes)
-    self.save
+    self.save ? self : nil
   end
   
   # Updates the drop ship order's total by getting the sum of its line items' subtotals
@@ -74,7 +75,7 @@ class DropShipOrder < ActiveRecord::Base
   
     def perform_delivery # :nodoc:
       self.sent_at = Time.now
-      puts DropShipOrderMailer.supplier_order(self).deliver!
+      DropShipOrderMailer.supplier_order(self).deliver!
     end
     
     def set_recieved_at # :nodoc:

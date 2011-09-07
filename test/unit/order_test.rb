@@ -35,15 +35,13 @@ class OrderTest < ActiveSupport::TestCase
       @order.update!
     end
   
-    should "add to supplier orders during finalize" do
-      count = @supplier.active_order.line_items.count
-      assert_equal 0, count, "Supplier should start with zero line items"
-      @order.finalize!
-      assert_equal 1, @supplier.active_order.line_items.count
+    should "create a drop ship order for supplier during finalize" do
+      assert_equal 0, @supplier.orders.count
+      @order.next!
+      assert_equal 1, @supplier.orders.count
     end
     
   end
-  
   
   
 end

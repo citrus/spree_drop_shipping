@@ -10,7 +10,6 @@ class SupplierTest < ActiveSupport::TestCase
   should have_many(:supplier_products)
   should have_many(:products)
   should have_many(:orders)
-  should have_one(:active_drop_ship_order)  
   
   context "A new supplier" do
 
@@ -48,18 +47,6 @@ class SupplierTest < ActiveSupport::TestCase
     
   end
   
-  context "An unsaved, valid supplier" do
-    
-    setup do 
-      @supplier = Factory.build(:supplier)
-    end
-    
-    should "auto-create active order on save" do
-      @supplier.save
-      assert_not_nil @supplier.active_order
-    end
-    
-  end
   
   context "An existing supplier" do
     
