@@ -32,6 +32,7 @@ begin
     
     factory :drop_ship_order do
       supplier { Factory.create(:supplier) }
+      order { Order.complete.last }
       total 0
     end
     

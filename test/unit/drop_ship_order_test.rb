@@ -125,7 +125,12 @@ class DropShipOrderTest < ActiveSupport::TestCase
         context "and shipped" do
         
           setup do
-            @dso.process!
+            @dso.update_attributes(
+              :shipping_method => "UPS Ground",
+              :confirmation_number => "935468423",
+              :tracking_number => "1Z03294230492345234"
+            )
+            @dso.ship!
           end
           
           should "move to the 'complete' state" do
