@@ -1,22 +1,22 @@
 class DropShipOrderMailer < ActionMailer::Base
   
-  default_url_options[:host] = "http://example.com"
+  default_url_options[:host] = "example.com"
   
   default :from => 'no-reply@example.com'
 
   def supplier_order(dso)
     get_defaults(dso)
-    mail(:to => @supplier.email_with_name)
+    send_mail "#{Spree::Config[:site_name]} - Order ##{dso.id}"
   end
   
   def confirmation(dso)
     get_defaults(dso)
-    mail(:to => @supplier.email_with_name)
+    send_mail "Confirmation - #{Spree::Config[:site_name]} - Order ##{dso.id}"
   end
   
   def shipment(dso)
     get_defaults(dso)
-    mail(:to => @supplier.email_with_name)
+    send_mail "Shipped - #{Spree::Config[:site_name]} - Order ##{dso.id}"
   end
   
   private
@@ -26,6 +26,10 @@ class DropShipOrderMailer < ActionMailer::Base
       @order = dso.order
       @supplier = dso.supplier
       @address = @order.ship_address
+    end
+    
+    def send_mail(subject)
+      mail :to => @supplier.email_with_name, :subject => subject
     end
   
 end

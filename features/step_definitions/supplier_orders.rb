@@ -112,6 +112,7 @@ Then /^"([^"]*)" should receive an order email$/ do |name|
   supplier = Supplier.find_by_name(name)
   flunk if ActionMailer::Base.deliveries.empty?
   assert_equal supplier.email, ActionMailer::Base.deliveries.last.to.first
+  assert_equal "#{Spree::Config[:site_name]} - Order ##{supplier.orders.last.id}", ActionMailer::Base.deliveries.last.subject
 end
 
 Then /^I follow "([^"]*)" from within the email body$/ do |link|
