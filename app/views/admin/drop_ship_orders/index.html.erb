@@ -1,13 +1,15 @@
 <h2>Listing Orders</h2>
 
-
 <table class="index">
   <thead>
 	<tr>
-    	<th><%= sort_link @search, :id,  t('order.name') %></th>
+    	<th><%= sort_link @search, :id,  t('order.id') %></th>
     	<th><%= sort_link @search, :supplier_name,  t('order.supplier.name') %></th>
     	<th><%= sort_link @search, :total,  t('order.total') %></th>
-    	<th><%= t('action') %></th>
+    	<th><%= sort_link @search, :sent_at,  t('order.sent_at') %></th>
+    	<th><%= sort_link @search, :confirmed_at,  t('order.confirmed_at') %></th>
+    	<th><%= sort_link @search, :shipped_at,  t('order.shipped_at') %></th>
+    	<th><%= sort_link @search, :status,  t('order.status') %></th>
 	</tr>
   </thead>
   <tbody>
@@ -16,10 +18,10 @@
       <td><%= link_to "##{order.id}", admin_drop_ship_order_url(order) %></td>
       <td><%= link_to order.supplier.name, admin_supplier_url(order.supplier) %></td>
       <td><%= number_to_currency order.total %></td>
-      <td>
-      	<%= link_to_edit order %> &nbsp;
-      	<%= link_to_delete order %>
-      </td>
+      <td><%= order.created_at.to_s(:long) %></td>
+      <td><%= order.confirmed_at.to_s(:long) if order.confirmed_at.present? %></td>
+      <td><%= order.shipped_at.to_s(:long) if order.shipped_at.present? %></td>
+      <td><%= order.state %></td>
     </tr>
     <% end %>
   </tbody>

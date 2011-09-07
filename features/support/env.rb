@@ -1,10 +1,14 @@
 require 'spork'
 
+ENV["RAILS_ENV"] = "cucumber"
 ENV["RAILS_ROOT"] = File.expand_path("../../../test/dummy", __FILE__)
  
 Spork.prefork do
   require 'cucumber/rails'
   require 'factory_girl'
+  require 'faker'
+    
+  %w(calculator_factory zone_factory shipping_method_factory payment_method_factory ).map{|f| require "spree_core/testing_support/factories/#{f}" }
   
   I18n.reload!
   
@@ -12,6 +16,10 @@ Spork.prefork do
   Capybara.default_selector = :css
    
   include Warden::Test::Helpers    
+  
+  ActionMailer::Base.delivery_method    = :test
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.default_url_options[:host] = "example.com"
   
   ActionController::Base.allow_rescue = false
   
@@ -25,6 +33,8 @@ Spork.each_run do
   Dir["#{File.expand_path("../../../", __FILE__)}/test/support/**/*.rb"].each { |f| require f }
   
   Before do |s| 
+
+    ActionMailer::Base.deliveries = []
   
     Fixtures.reset_cache
     fixtures_folder = File.expand_path("../../../test/fixtures", __FILE__)

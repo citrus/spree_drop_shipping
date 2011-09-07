@@ -33,7 +33,7 @@ class DropShipOrderTest < ActiveSupport::TestCase
     
     setup do
       @supplier = suppliers(:supplier_1)
-      @dso = @supplier.active_order
+      @dso = @supplier.orders.create
     end
     
     should "add line relevant line items" do
@@ -108,21 +108,21 @@ class DropShipOrderTest < ActiveSupport::TestCase
         assert_equal @dso.supplier.email, ActionMailer::Base.deliveries.last.to.first
       end
             
-      context "and recieved" do
+      context "and confirmed" do
       
         setup do
-          @dso.recieve!
+          @dso.confirm!
         end
         
-        should "move to the 'recieved' state" do
-          assert_equal "recieved", @dso.state
+        should "move to the 'confirmed' state" do
+          assert_equal "confirmed", @dso.state
         end    
         
-        should "set recieved at" do
-          assert_not_nil @dso.recieved_at
+        should "set confirmed at" do
+          assert_not_nil @dso.confirmed_at
         end
         
-        context "and processed" do
+        context "and shipped" do
         
           setup do
             @dso.process!
@@ -132,8 +132,8 @@ class DropShipOrderTest < ActiveSupport::TestCase
             assert_equal "complete", @dso.state
           end  
           
-          should "set processed at" do
-            assert_not_nil @dso.processed_at
+          should "set shipped at" do
+            assert_not_nil @dso.shipped_at
           end    
         
         end  

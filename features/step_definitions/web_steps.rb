@@ -42,6 +42,8 @@ Given /^I'm on the ((?!page).*) page for (.*)$/ do |path, id|
   case id
     when "the first product"
       id = Product.first
+    when "the last drop ship order"
+      id = DropShipOrder.last
   end
   path = "#{path.downcase.gsub(/\s/, '_')}_path".to_sym
   begin 

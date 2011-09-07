@@ -7,4 +7,6 @@ Rails.application.routes.draw do
     resources :drop_ship_orders
   end
   
+  resources :drop_ship_orders
+  
 end

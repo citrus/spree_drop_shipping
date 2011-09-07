@@ -80,9 +80,57 @@ Given /^I'm on the order confirmation step$/ do
   assert_equal "/checkout/confirm", current_path
 end
 
-Then /^supplier named "([^"]*)" should have (\d+) order with (\d+) product$/ do |name, order_count, product_count|
-  supplier = Supplier.find_by_name(name)
-  assert_equal order_count, supplier.orders.count
-  # assert_equal product_count, to do
-  
+Given /^I have a shipping method$/ do
+  Factory.create(:shipping_method)
 end
+
+Given /^I have a bogus payment method$/ do
+  Factory.create(:bogus_payment_method)
+end
+
+Given /^supplier named "([^"]*)" has been sent a drop ship order for the first product$/ do |name|
+  supplier = Supplier.find_by_name(name)
+  order = Order.find_by_state('complete')
+  order.ship_address = Address.find_by_firstname("Boxy")
+  order.save
+  dso = Factory.create(:drop_ship_order, :supplier => supplier, :order => order)
+  dso.add(order.line_items).deliver!
+end
+
+Given /^the last drop ship order has been confirmed$/ do
+  DropShipOrder.last.confirm!
+end
+
+Then /^supplier named "([^"]*)" should have (\d+) orders? for the first product$/ do |name, order_count|
+  supplier = Supplier.find_by_name(name)
+  product = Product.first
+  assert_equal order_count.to_i, supplier.orders.count
+  assert_equal product.sku, supplier.orders.first.line_items.first.sku
+end
+
+Then /^"([^"]*)" should receive an order email$/ do |name|
+  supplier = Supplier.find_by_name(name)
+  flunk if ActionMailer::Base.deliveries.empty?
+  assert_equal supplier.email, ActionMailer::Base.deliveries.last.to.first
+end
+
+Then /^I follow "([^"]*)" from within the email body$/ do |link|
+  email = ActionMailer::Base.deliveries.last
+  doc = Nokogiri::HTML(email.body.to_s)
+  a = doc.xpath("//a[contains(.,'#{link}')]")
+  if a
+    visit a.attribute("href").to_s.sub("http://example.com", "")
+  else
+    raise Capybara::ElementNotFound, "Could not find link with text #{link.inspect}"
+  end
+end
+
+Then /^I should be editing the last drop ship order$/ do
+  assert_equal edit_drop_ship_order_path(DropShipOrder.last), current_path
+end
+
+Then /^I should be viewing the last drop ship order$/ do
+  assert_equal drop_ship_order_path(DropShipOrder.last), current_path
+end
+
+

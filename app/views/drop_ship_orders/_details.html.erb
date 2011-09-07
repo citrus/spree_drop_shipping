@@ -1,0 +1,13 @@
+<dl>
+  <dt>Order Reference Number</dt>
+    <dd><%= @dso.order.number %></dd>
+  <dt>Status</dt>
+    <dd><%= @dso.state %></dd>  
+  <% %w(sent_at confirmed_at shipped_at).each do |attribute| %>
+    <% time = @dso.send(attribute) %>
+    <% unless time.nil? %>
+      <dt><%= attribute.titleize %></dt>
+        <dd><%= time.to_s(:long) %></dd>
+    <% end %>
+  <% end %>
+</dl>

@@ -23,20 +23,24 @@ class DropShipOrder < ActiveRecord::Base
   state_machine :initial => 'active' do
   
     before_transition :on => :deliver, :do => :perform_delivery
-    before_transition :on => :recieve, :do => :set_recieved_at
-    before_transition :on => :process, :do => :set_processed_at
+    before_transition :on => :confirm, :do => :set_confirmed_at
+    before_transition :on => :ship, :do => :set_shipped_at
   
     event :deliver do
       transition :active => :sent
     end
   
-    event :recieve do
-      transition :sent => :recieved
+    event :confirm do
+      transition :sent => :confirmed
     end
     
-    event :process do
-      transition :recieved => :complete
+    event :ship do
+      transition :confirmed => :complete
     end 
+    
+    state :complete do
+      validates :shipping_method, :confirmation_number, :tracking_number, :presence => true 
+    end
     
   end
   
@@ -57,14 +61,19 @@ class DropShipOrder < ActiveRecord::Base
       else
         attributes << items.first.drop_ship_attributes.update(:quantity => quantity)
       end
-    end
-    self.line_items.create(attributes)
+    end    
+    self.line_items.create(attributes) unless attributes.empty?
     self.save ? self : nil
   end
   
   # Updates the drop ship order's total by getting the sum of its line items' subtotals
   def update_total
     self.total = self.line_items.reload.map(&:subtotal).inject(:+).to_f
+  end
+  
+  # Don't allow drop ship orders to be destroyed
+  def destroy
+    false
   end
   
   
@@ -78,12 +87,12 @@ class DropShipOrder < ActiveRecord::Base
       DropShipOrderMailer.supplier_order(self).deliver!
     end
     
-    def set_recieved_at # :nodoc:
-      self.recieved_at = Time.now
+    def set_confirmed_at # :nodoc:
+      self.confirmed_at = Time.now
     end
     
-    def set_processed_at # :nodoc:
-      self.processed_at = Time.now
+    def set_shipped_at # :nodoc:
+      self.shipped_at = Time.now
     end  
 
 end
