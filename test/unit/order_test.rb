@@ -31,6 +31,7 @@ class OrderTest < ActiveSupport::TestCase
     setup do 
       @supplier = suppliers(:supplier_1)
       @order = orders(:pending)
+      @order.ship_address = Address.last
       @order.line_items = [ line_items(:ds_li_1) ]
       @order.update!
     end

@@ -6,6 +6,7 @@ class DropShipOrderTest < ActiveSupport::TestCase
     ActionMailer::Base.deliveries = []
   end
 
+  should belong_to(:order)
   should belong_to(:supplier)
   should have_many(:line_items)
 
@@ -84,6 +85,8 @@ class DropShipOrderTest < ActiveSupport::TestCase
     setup do
       ActionMailer::Base.deliveries = []
       @dso = Factory.create(:drop_ship_order)
+      @dso.order.ship_address = Address.find_by_firstname("Boxy")
+      @dso.save
     end
     
     should "start in the 'active' state" do
