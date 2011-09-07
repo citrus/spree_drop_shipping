@@ -10,7 +10,7 @@ class DropShipOrderTest < ActiveSupport::TestCase
   should have_many(:line_items)
 
   should validate_presence_of(:supplier_id)
-  
+  should validate_presence_of(:order_id)  
 
   context "A new drop ship order" do
   
@@ -33,7 +33,7 @@ class DropShipOrderTest < ActiveSupport::TestCase
     
     setup do
       @supplier = suppliers(:supplier_1)
-      @dso = @supplier.orders.create
+      @dso = @supplier.orders.create(:order_id => 1)
     end
     
     should "add line relevant line items" do
@@ -106,6 +106,7 @@ class DropShipOrderTest < ActiveSupport::TestCase
 
       should "send order to supplier" do
         assert_equal @dso.supplier.email, ActionMailer::Base.deliveries.last.to.first
+        assert_equal "#{Spree::Config[:site_name]} - Order ##{@dso.id}", ActionMailer::Base.deliveries.last.subject
       end
             
       context "and confirmed" do
@@ -120,6 +121,11 @@ class DropShipOrderTest < ActiveSupport::TestCase
         
         should "set confirmed at" do
           assert_not_nil @dso.confirmed_at
+        end
+        
+        should "send confirmation to supplier" do
+          assert_equal @dso.supplier.email, ActionMailer::Base.deliveries.last.to.first
+          assert_equal "Confirmation - #{Spree::Config[:site_name]} - Order ##{@dso.id}", ActionMailer::Base.deliveries.last.subject
         end
         
         context "and shipped" do
@@ -139,7 +145,12 @@ class DropShipOrderTest < ActiveSupport::TestCase
           
           should "set shipped at" do
             assert_not_nil @dso.shipped_at
-          end    
+          end
+          
+          should "send shipment email to supplier" do
+            assert_equal @dso.supplier.email, ActionMailer::Base.deliveries.last.to.first
+            assert_equal "Shipped - #{Spree::Config[:site_name]} - Order ##{@dso.id}", ActionMailer::Base.deliveries.last.subject
+          end              
         
         end  
       

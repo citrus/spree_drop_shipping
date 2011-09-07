@@ -10,7 +10,7 @@ class DropShipOrder < ActiveRecord::Base
   #==========================================
   # Validations
   
-  validates :supplier_id, :presence => true
+  validates :supplier_id, :order_id, :presence => true
 
   #==========================================
   # Callbacks
@@ -23,8 +23,8 @@ class DropShipOrder < ActiveRecord::Base
   state_machine :initial => 'active' do
   
     before_transition :on => :deliver, :do => :perform_delivery
-    before_transition :on => :confirm, :do => :set_confirmed_at
-    before_transition :on => :ship, :do => :set_shipped_at
+    before_transition :on => :confirm, :do => :perform_confirmation
+    before_transition :on => :ship,    :do => :perform_shipment
   
     event :deliver do
       transition :active => :sent
@@ -87,12 +87,14 @@ class DropShipOrder < ActiveRecord::Base
       DropShipOrderMailer.supplier_order(self).deliver!
     end
     
-    def set_confirmed_at # :nodoc:
+    def perform_confirmation # :nodoc:
       self.confirmed_at = Time.now
+      DropShipOrderMailer.confirmation(self).deliver!
     end
     
-    def set_shipped_at # :nodoc:
+    def perform_shipment # :nodoc:
       self.shipped_at = Time.now
+      DropShipOrderMailer.shipment(self).deliver!
     end  
 
 end
