@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   
   # Development
   s.add_development_dependency('spree_sample',     '>= 0.60.1')
-  s.add_development_dependency('dummier',          '>= 0.2.0')
+  s.add_development_dependency('dummier',          '>= 0.2.4')
   s.add_development_dependency('shoulda',          '>= 3.0.0.beta2')
   s.add_development_dependency('spork',            '>= 0.9.0.rc9')
   s.add_development_dependency('spork-testunit',   '>= 0.0.5')
