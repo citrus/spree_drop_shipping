@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["spencer@citrusme.com"]
   s.homepage    = "https://github.com/citrus/spree_drop_shipping"
   s.summary     = %q{Links products to suppliers and forwards orders to appropriate suppliers.}
-  s.description = %q{TODO}
+  s.description = %q{Links products to suppliers and forwards orders to appropriate suppliers. Please see README for more details.}
 
   s.rubyforge_project = "spree_drop_shipping"
 
