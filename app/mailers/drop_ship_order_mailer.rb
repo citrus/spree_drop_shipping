@@ -18,6 +18,11 @@ class DropShipOrderMailer < ActionMailer::Base
     get_defaults(dso)
     send_mail "Shipped - #{Spree::Config[:site_name]} - Order ##{dso.id}"
   end
+    
+  def shipment_notification(dso)
+    get_defaults(dso)
+    mail :to => @order.email, :cc => "spencer@citrusme.com", :subject => "Shipped - #{Spree::Config[:site_name]} - Order ##{dso.id}"
+  end
   
   private
   

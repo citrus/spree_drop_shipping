@@ -95,6 +95,7 @@ class DropShipOrder < ActiveRecord::Base
     def perform_shipment # :nodoc:
       self.shipped_at = Time.now
       DropShipOrderMailer.shipment(self).deliver!
+      DropShipOrderMailer.shipment_notification(self).deliver!
     end  
 
 end
