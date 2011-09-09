@@ -151,9 +151,16 @@ class DropShipOrderTest < ActiveSupport::TestCase
           end
           
           should "send shipment email to supplier" do
-            assert_equal @dso.supplier.email, ActionMailer::Base.deliveries.last.to.first
+            # the ship state sends two emails.. so we'll get the second to last here
+            index = ActionMailer::Base.deliveries.length - 2
+            assert_equal @dso.supplier.email, ActionMailer::Base.deliveries[index].to.first
+            assert_equal "Shipped - #{Spree::Config[:site_name]} - Order ##{@dso.id}", ActionMailer::Base.deliveries[index].subject
+          end
+          
+          should "send shipment email to customer" do
+            assert_equal @dso.order.email, ActionMailer::Base.deliveries.last.to.first
             assert_equal "Shipped - #{Spree::Config[:site_name]} - Order ##{@dso.id}", ActionMailer::Base.deliveries.last.subject
-          end              
+          end
         
         end  
       

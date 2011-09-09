@@ -5,14 +5,14 @@
 <h3 style="border-bottom: 1px solid #ddd;">Shipment Information</h3>
 <dl>
   <dt>Shipping Method</dt>
-    <dd><%= dso.shipping_method %></dd>
+    <dd><%= @dso.shipping_method %></dd>
   <dt>Confirmation Number</dt>
-    <dd><%= dso.confirmation_number %></dd>
+    <dd><%= @dso.confirmation_number %></dd>
   <dt>Tracking Number</dt>
-    <dd><%= dso.tracking_number %></dd>
-  <% if dso.notes.present? %>
+    <dd><%= @dso.tracking_number %></dd>
+  <% if @dso.notes.present? %>
     <dt>Notes</dt>
-      <dd><%= simple_format dso.notes %></dd>
+      <dd><%= simple_format @dso.notes %></dd>
   <% end %>
 </dl>
 
