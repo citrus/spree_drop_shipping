@@ -1,7 +1,7 @@
 Spree Drop Shipping
 ===================
 
-... is going to be pretty awesome.
+... is nearing completion!
 
 ---
 
@@ -13,13 +13,16 @@ Spree Drop Shipping
 
 So the main goal with spree_drop_shipping is to link products to suppliers and forward orders to appropriate suppliers. 
 
+In more detail, once an order is placed for a product that drop ships a drop ship order is created for the product's supplier. This drop ship order is sent to the supplier via Email. The supplier then follows a link to the order within the email where they are prompted to confirm the order. 
+
+After the supplier has confirmed an order and is ready to ship, they can log into the site and update the drop ship order with a shipping method, confirmation number and tracking number. Once they 'process & finalize' the order, the customer is notified with the shipment details.
+
 
 Todo
 ----
 
-- DSO (drop ship order) authentication/abilities
-- DSO Email templates
-- DSO Admin show styles
+- Finish/Style Email templates
+- Drop ship order styles
 - Finish I18n implementation
 
 
