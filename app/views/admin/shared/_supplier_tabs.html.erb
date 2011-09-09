@@ -2,13 +2,13 @@
 
 <% content_for :sidebar do %>
 
-  <h3 class="name"><%= @supplier.name %></h3>
-  <br clear="clear" />
-
   <ul class="sidebar supplier-menu">
     <%= hook :admin_supplier_tabs, {:current => current} do %>
       <li<%== ' class="active"' if current == "Supplier Details" %>>
-        <%= link_to t('.supplier_details'), edit_admin_supplier_url(@supplier) %>
+        <%= link_to t('.supplier_details'), admin_supplier_url(@supplier) %>
+      </li>
+      <li<%== ' class="active"' if current == "Edit Supplier" %>>
+        <%= link_to t('.edit_supplier'), edit_admin_supplier_url(@supplier) %>
       </li>
       <li<%== ' class="active"' if current == "Supplier Orders" %>>
         <%= link_to t('.supplier_orders'), admin_supplier_orders_url(@supplier) %>

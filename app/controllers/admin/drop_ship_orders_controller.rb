@@ -12,7 +12,12 @@ class Admin::DropShipOrdersController < Admin::ResourceController
     def collection
       params[:search] ||= {}
       params[:search][:meta_sort] ||= "id.desc"
-      @search = DropShipOrder.includes(:supplier).search(params[:search])
+      scope = if params[:supplier_id] && @supplier = Supplier.find(params[:supplier_id])
+        @supplier.orders
+      else
+        DropShipOrder.scoped
+      end      
+      @search = scope.includes(:supplier).search(params[:search])
       @collection = @search.paginate(:per_page => Spree::Config[:orders_per_page], :page => params[:page])
     end
 
