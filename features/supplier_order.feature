@@ -22,6 +22,7 @@ Feature: Supplier Drop ship orders
   Scenario: Supplier receives drop ship order
     Given I have an existing supplier named "Some Big Store"
       And supplier named "Some Big Store" has been sent a drop ship order for the first product
+      And I'm logged in as "Some Big Store"
     When I follow "You must click here to confirm this order" from within the email body
     Then I should be editing the last drop ship order
       And I should see "Please review and click 'Confirm Order' to continue." in the flash notice
@@ -32,6 +33,7 @@ Feature: Supplier Drop ship orders
   Scenario: Supplier ships confirmed drop ship order
     Given I have an existing supplier named "Some Big Store"
       And supplier named "Some Big Store" has been sent a drop ship order for the first product
+      And I'm logged in as "Some Big Store"
       And the last drop ship order has been confirmed
       And I'm on the edit drop ship order page for the last drop ship order
     When I fill in the following:

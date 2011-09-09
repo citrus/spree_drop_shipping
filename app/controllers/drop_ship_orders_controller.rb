@@ -1,6 +1,8 @@
 class DropShipOrdersController < Spree::BaseController
   
-  before_filter :get_dso
+  before_filter :check_authorization
+  
+  #before_filter :get_dso
   
   def show
     redirect_to edit_drop_ship_order_path(@dso) unless @dso.complete?
@@ -43,5 +45,11 @@ class DropShipOrdersController < Spree::BaseController
       @dso = DropShipOrder.includes(:line_items, :order => [ :ship_address ]).find(params[:id])
       @address = @dso.order.ship_address
     end
+  
+    def check_authorization
+      get_dso
+      authorize!(:show, @dso)
+    end
+  
       
 end
