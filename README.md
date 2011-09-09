@@ -31,7 +31,7 @@ Todo
 Installation
 ------------
 
-Here's how you'll install spree_drop_shipping into your existing spree site:
+Here's how to install spree_drop_shipping into your existing spree site:
 
 
 Add the following to your Gemfile:
@@ -145,18 +145,6 @@ You can also enable the `after_migrate` [dummier](https://github.com/citrus/dumm
     cd test/dummy
     rails s
     
-    
-Now you can rinse and repeat with:
-
-    # from test/dummy
-    cd ../../
-    bundle exec dummier
-    cd test/dummy
-    rails s
-    
-    
-So fresh and so clean, clean...
-
 
 Contributors
 ------------
