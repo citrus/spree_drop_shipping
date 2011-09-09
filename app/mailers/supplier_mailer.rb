@@ -1,6 +1,6 @@
 class SupplierMailer < ActionMailer::Base
   
-  default_url_options[:host] = "example.com"
+  default_url_options[:host] = "localhost:3000"
   
   default :from => 'no-reply@example.com'
 
