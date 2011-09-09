@@ -4,7 +4,6 @@ class Admin::DropShipOrdersController < Admin::ResourceController
     @dso = load_resource
     @supplier = @dso.supplier
     @address = @dso.order.ship_address
-    render :template => "drop_ship_orders/show"
   end
  
   private

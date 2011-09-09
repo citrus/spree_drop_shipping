@@ -5,7 +5,7 @@
 </div>
 
 <div class="right">
-  <%= render "drop_ship_orders/shipment_info", :dso => @dso %>
+  <%= render "drop_ship_orders/shipment_info", :dso => @dso if @dso.complete? %>
 </div>
 
 <hr class="clear" />
