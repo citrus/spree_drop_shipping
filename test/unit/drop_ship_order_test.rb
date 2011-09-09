@@ -9,6 +9,7 @@ class DropShipOrderTest < ActiveSupport::TestCase
   should belong_to(:order)
   should belong_to(:supplier)
   should have_many(:line_items)
+  should have_one(:user).through(:supplier)
 
   should validate_presence_of(:supplier_id)
   should validate_presence_of(:order_id)  

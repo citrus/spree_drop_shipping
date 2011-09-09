@@ -6,6 +6,7 @@ class DropShipOrder < ActiveRecord::Base
   belongs_to :order
   belongs_to :supplier
   has_many   :line_items, :class_name => "DropShipLineItem"
+  has_one    :user, :through => :supplier
   
   #==========================================
   # Validations

@@ -48,6 +48,25 @@ class SupplierTest < ActiveSupport::TestCase
   end
   
   
+  context "An unsaved, valid supplier" do
+  
+    setup do
+      @supplier = Factory.build(:supplier)
+    end
+    
+    should "create user upon create" do
+      @supplier.save
+      assert_not_nil @supplier.user
+    end
+    
+    should "send welcome email" do
+      @supplier.save
+      assert_equal "#{Spree::Config[:site_name]} - Welcome!", ActionMailer::Base.deliveries.last.subject
+    end
+    
+  end
+  
+  
   context "An existing supplier" do
     
     setup do 

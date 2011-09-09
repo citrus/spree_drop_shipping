@@ -1,0 +1,21 @@
+<h2>Hello!</h2>
+
+<p>You've been signed up as a drop ship supplier for <%= Spree::Config[:site_name] %></h2>
+
+<p>Please verify that the information below is correct.</p>
+
+<hr/>
+
+<p> ## TODO ##
+<%=h @supplier.inspect %>
+</p>
+
+<hr/>
+
+<h4>Next steps? Login and change your password</h4>
+
+<%= link_to "Login and change my password", edit_user_password_url(:reset_password_token => @user.reset_password_token) %>
+
+<p>Thanks,</p>
+
+<p>- <%= Spree::Config[:site_name] %></p>
