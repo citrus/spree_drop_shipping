@@ -44,9 +44,10 @@ class Supplier < ActiveRecord::Base
     
     def create_user_and_send_welcome
       password = Digest::SHA1.hexdigest(email.to_s)[0..16]
-      self.create_user(:email => email, :password => password, :password_confirmation => password)
-      user.generate_reset_password_token!      
+      user = self.create_user(:email => email, :password => password, :password_confirmation => password)
+      user.send(:generate_reset_password_token!)
       SupplierMailer.welcome(self).deliver!
+      self.save
     end
     
     def save_address # :nodoc:
