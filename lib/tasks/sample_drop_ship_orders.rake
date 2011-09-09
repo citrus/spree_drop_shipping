@@ -1,10 +1,10 @@
 namespace :db do
   namespace :sample do
-    desc "Creates sample drop ship orders (for debugging)"
+    desc "Create sample drop ship orders"
     task :drop_ship_orders => :environment do
     
       if Order.count == 0
-        puts "Please run `rake db:sample:suppliers` first to create suppliers" 
+        puts "Please run `rake db:sample` first to create products and orders" 
         exit
       end
       
@@ -19,7 +19,7 @@ namespace :db do
       
       puts "Linking existing line items to suppliers"
       LineItem.where("supplier_id IS NULL").all.each do |li|
-        li.update_attributes(:supplier => @suppliers.shuffle.first)
+        li.update_attributes(:supplier_id => @suppliers.shuffle.first.id)
         print "*"
       end
       puts

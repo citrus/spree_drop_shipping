@@ -24,6 +24,8 @@ Todo
 - Finish/Style Email templates
 - Drop ship order styles
 - Finish I18n implementation
+- Spree 0.70+ compatibility
+- Better documentation
 
 
 Installation
@@ -52,8 +54,16 @@ And reboot your server:
   
     rails s
     
-    
-You should be up and running now! - except that this gem doesn't do much yet hahahaha!
+You should be up and running now!
+
+
+### Sample Data
+
+If you'd like to generate sample data, use the included rake tasks
+
+    rake db:sample                    # Loads sample data into the store
+    rake db:sample:suppliers          # Create sample suppliers and randomly link to products
+    rake db:sample:drop_ship_orders   # Create sample drop ship orders
 
 
 Testing
