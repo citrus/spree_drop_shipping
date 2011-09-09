@@ -6,8 +6,10 @@ class OrderTest < ActiveSupport::TestCase
     DropShipOrder.destroy_all
   end
 
-  should "have alias chain for finalize! and supplier_order methods" do
-    assert subject.respond_to?(:finalize_with_supplier_order!)
+  should have_one(:drop_ship_order)
+  
+  should "have respond to finalize_for_dropship!" do
+    assert subject.respond_to?(:finalize_for_dropship!)
   end
   
   
@@ -40,6 +42,11 @@ class OrderTest < ActiveSupport::TestCase
       assert_equal 0, @supplier.orders.count
       @order.next!
       assert_equal 1, @supplier.orders.count
+    end
+    
+    should "become complete by setting completed at" do
+      @order.next!
+      assert_not_nil @order.completed_at
     end
     
   end

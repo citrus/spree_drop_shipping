@@ -15,11 +15,17 @@ module SpreeDropShipping
     end
         
     def self.activate
+        
+      Order.class_eval do
+        state_machine do
+          after_transition :to => 'complete', :do => :finalize_for_dropship!
+        end
+      end
       
       Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator.rb")) do |c|
         Rails.env.production? ? require(c) : load(c)
       end
-      
+            
     end
 
     config.to_prepare &method(:activate).to_proc
