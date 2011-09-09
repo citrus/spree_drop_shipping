@@ -34,9 +34,11 @@ class SupplierTest < ActiveSupport::TestCase
       assert !@supplier.errors.keys.include?(:email)
     end
     
-    should "require http:// for url" do
+    should "not require http:// for url, but add it automatically" do
       @supplier.url = "example.com"
-      assert !@supplier.valid?
+      @supplier.valid?
+      assert !@supplier.errors.keys.include?(:url)
+      assert_equal "http://example.com", @supplier.url
     end
     
     should "allow valid url" do
