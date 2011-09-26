@@ -6,9 +6,21 @@
 
 <hr/>
 
-<p> ## TODO ##
-<%=h @supplier.inspect %>
-</p>
+<ul style="list-style-type: none; padding: 0;">
+  <li><b>Name:</b><br/><%= @supplier.name %></li>
+  <li><b>Email:</b><br/><%= mail_to @supplier.email %></li>
+  <li><b>Phone:</b><br/><%= @supplier.phone %></li>
+  <li>
+    <b>Address:</b><br/>
+    <%= @supplier.address.address1 %><br/>
+    <% unless @supplier.address.address2.blank? %><%= @supplier.address.address2 %><br/><% end %>
+    <%= @supplier.address.city %>, <%= @supplier.address.state.name %> <%= @supplier.address.country.name %><br/>
+    <%= @supplier.address.zipcode %>
+  </li>
+  <li><b>Contact:</b><br/><%= @supplier.contact %></li>
+  <li><b>Contact Email:</b><br/><%= @supplier.contact_email %></li>
+  <li><b>Contact Phone:</b><br/><%= @supplier.contact_phone %></li>
+</ul>
 
 <hr/>
 

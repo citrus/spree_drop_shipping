@@ -23,12 +23,12 @@ class DropShipOrder < ActiveRecord::Base
   
   state_machine :initial => 'active' do
   
-    before_transition :on => :deliver, :do => :perform_delivery
-    before_transition :on => :confirm, :do => :perform_confirmation
-    before_transition :on => :ship,    :do => :perform_shipment
+    after_transition :on => :deliver, :do => :perform_delivery
+    after_transition :on => :confirm, :do => :perform_confirmation
+    after_transition :on => :ship,    :do => :perform_shipment
   
     event :deliver do
-      transition :active => :sent
+      transition [ :active, :sent ] => :sent
     end
   
     event :confirm do
@@ -84,17 +84,17 @@ class DropShipOrder < ActiveRecord::Base
   private
   
     def perform_delivery # :nodoc:
-      self.sent_at = Time.now
+      self.update_attribute(:sent_at, Time.now)
       DropShipOrderMailer.supplier_order(self).deliver!
     end
     
     def perform_confirmation # :nodoc:
-      self.confirmed_at = Time.now
+      self.update_attribute(:confirmed_at, Time.now)
       DropShipOrderMailer.confirmation(self).deliver!
     end
     
     def perform_shipment # :nodoc:
-      self.shipped_at = Time.now
+      self.update_attribute(:shipped_at, Time.now)
       DropShipOrderMailer.shipment(self).deliver!
       DropShipOrderMailer.shipment_notification(self).deliver!
     end  

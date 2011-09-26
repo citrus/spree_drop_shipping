@@ -5,6 +5,16 @@ class Admin::DropShipOrdersController < Admin::ResourceController
     @supplier = @dso.supplier
     @address = @dso.order.ship_address
   end
+  
+  def deliver
+    @dso = load_resource
+    if @dso.deliver
+      flash[:notice] = "Drop ship order ##{@dso.id} was successfully sent!"
+    else
+      flash[:error] = "Drop ship order ##{@dso.id} could not be sent."
+    end
+    redirect_to admin_drop_ship_order_path(@dso)
+  end
  
   private
       

@@ -1,16 +1,20 @@
 <h1>Order #<%= @dso.id %></h1>
 
-<div class="left">
+<div class="float-left">
   <%= render "drop_ship_orders/details", :dso => @dso %>
 </div>
 
-<div class="right">
-  <%= render "drop_ship_orders/shipment_info", :dso => @dso if @dso.complete? %>
+<div class="float-left">
+  <% if @dso.complete? %>
+    <%= render "drop_ship_orders/shipment_info", :dso => @dso %>
+  <% elsif !@dso.confirmed? %>
+    <%= link_to "<span>#{@dso.sent? ? "Resend" : "Send"} Order to Supplier</span>".html_safe, deliver_admin_drop_ship_order_path(@dso), :class => 'button' %>
+  <% end %>
 </div>
 
 <hr class="clear" />
 
-<div class="left">
+<div class="float-left">
   <h2>Supplier Information</h2>
   <dl>
     <dt>Name</dt>
@@ -36,7 +40,7 @@
   </dl>
 </div>
 
-<div class="right">
+<div class="float-left">
   <%= render "drop_ship_orders/shipping_info", :address => @address %>
 </div>
 
@@ -45,3 +49,12 @@
 <h2>Product Information</h2>
 
 <%= render "drop_ship_orders/table", :dso => @dso %>
+
+<% content_for :head do %>
+  <style type="text/css">
+    .float-left {
+      width: 45%;
+      float: left;
+    }
+  </style>
+<% end %>
