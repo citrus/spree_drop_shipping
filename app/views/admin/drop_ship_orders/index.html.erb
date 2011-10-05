@@ -7,6 +7,7 @@
 	<tr>
     	<th><%= sort_link @search, :id,  t('order.id') %></th>
     	<th><%= sort_link @search, :supplier_name,  t('order.supplier.name') %></th>
+    	<th><%= sort_link @search, :order_number,  t('order.number') %></th>
     	<th><%= sort_link @search, :total,  t('order.total') %></th>
     	<th><%= sort_link @search, :sent_at,  t('order.sent_at') %></th>
     	<th><%= sort_link @search, :confirmed_at,  t('order.confirmed_at') %></th>
@@ -15,15 +16,16 @@
 	</tr>
   </thead>
   <tbody>
-    <%- @collection.each do |order|%>
-    <tr id="<%= dom_id order %>">
-      <td><%= link_to "##{order.id}", admin_drop_ship_order_url(order) %></td>
-      <td><%= link_to order.supplier.name, admin_supplier_url(order.supplier) %></td>
-      <td><%= number_to_currency order.total %></td>
-      <td><%= order.created_at.to_s(:long) %></td>
-      <td><%= order.confirmed_at.to_s(:long) if order.confirmed_at.present? %></td>
-      <td><%= order.shipped_at.to_s(:long) if order.shipped_at.present? %></td>
-      <td><%= order.state %></td>
+    <%- @collection.each do |dso|%>
+    <tr id="<%= dom_id dso %>">
+      <td><%= link_to "##{dso.id}", admin_drop_ship_order_url(dso) %></td>
+      <td><%= link_to dso.supplier.name, admin_supplier_url(dso.supplier) %></td>
+      <td><%= link_to dso.order.number, admin_order_url(dso.order) %></td>
+      <td><%= number_to_currency dso.total %></td>
+      <td><%= dso.created_at.to_s(:long) %></td>
+      <td><%= dso.confirmed_at.to_s(:long) if dso.confirmed_at.present? %></td>
+      <td><%= dso.shipped_at.to_s(:long) if dso.shipped_at.present? %></td>
+      <td><%= dso.state %></td>
     </tr>
     <% end %>
   </tbody>
