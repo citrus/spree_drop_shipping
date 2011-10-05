@@ -33,6 +33,11 @@ en:
     country: Country
   
   admin:
+    orders:
+      confirm_drop_ship_info:
+        approve_drop_ship_orders: Approve Drop Ship Orders
+        resend_drop_ship_orders: Resend Drop Ship Orders
+        drop_ship_order_approval_confrmation: This will send each drop ship order to it's relative supplier. Continue?
     shared:
       product_form_right: 
         supplier: Drop Shipping Supplier
@@ -43,3 +48,7 @@ en:
       form:
         supplier_details: Supplier Details
         supplier_address: Supplier Address
+        
+    drop_ship_orders:
+      orders_sent: All drop ship orders have successfully been sent
+      orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.

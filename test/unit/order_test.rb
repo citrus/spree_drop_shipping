@@ -13,10 +13,10 @@ class OrderTest < ActiveSupport::TestCase
   end
   
   should "check for drop ship order" do
-    assert !subject.has_drop_ship_order?
+    assert !subject.has_drop_ship_orders?
     subject.drop_ship_orders =  [ subject.drop_ship_orders.build ]
-    assert subject.has_drop_ship_order?
-  end  
+    assert subject.has_drop_ship_orders?
+  end 
   
   context "An existing order" do
   
@@ -37,9 +37,10 @@ class OrderTest < ActiveSupport::TestCase
   
     setup do 
       @supplier = suppliers(:supplier_1)
+      @supplier2 = suppliers(:supplier_2)
       @order = orders(:pending)
       @order.ship_address = Address.last
-      @order.line_items = [ line_items(:ds_li_1) ]
+      @order.line_items = [ line_items(:ds_li_1), line_items(:ds_li_2) ]
       @order.update!
     end
   
@@ -54,6 +55,35 @@ class OrderTest < ActiveSupport::TestCase
       assert_not_nil @order.completed_at
     end
     
+    context "that's been finalized" do
+      
+      setup do
+        @order.next!
+      end
+      
+      should "have orders for each supplier" do
+        assert_equal 2, @order.drop_ship_orders.count
+      end
+      
+      should "approve attached drop ship orders" do
+        assert @order.approve_drop_ship_orders 
+      end
+      
+      context "and it's drop ship orders have been approved" do
+        
+        setup do
+          @order.approve_drop_ship_orders 
+        end
+        
+        should "have it's orders sent" do
+          @order.drop_ship_orders.each do |dso|
+            assert dso.state?(:sent)
+          end
+        end
+        
+      end
+      
+    end  
   end
   
   

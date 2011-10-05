@@ -30,3 +30,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @collection, :previous_label => "&#171; #{t('previous')}", :next_label => "#{t('next')} &#187;" %>

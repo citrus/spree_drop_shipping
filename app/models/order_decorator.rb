@@ -7,7 +7,7 @@ Order.class_eval do
   # state = self.state_machine.callbacks[:after].select{|i| i.known_states[0] == "complete" }[0]
   # state.instance_variable_set("@methods", [ :finalize!, :finalize_for_dropship! ])
   
-  def has_drop_ship_order?
+  def has_drop_ship_orders?
     !drop_ship_orders.empty?
   end  
   
@@ -16,6 +16,14 @@ Order.class_eval do
       supplier = Supplier.find(supplier_id)
       supplier.orders.create(:order => self).add(supplier_items) #.deliver!
     end
+  end
+  
+  def approve_drop_ship_orders
+    count = 0
+    drop_ship_orders.each do |dso|
+      count += 1 if dso.deliver
+    end
+    count == drop_ship_orders.length
   end
   
 end
