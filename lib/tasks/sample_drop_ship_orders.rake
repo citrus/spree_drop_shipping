@@ -19,25 +19,16 @@ namespace :db do
       
       puts "Linking existing line items to suppliers"
       LineItem.where("supplier_id IS NULL").all.each do |li|
-        li.update_attributes(:supplier_id => @suppliers.shuffle.first.id)
-        print "*"
+        print "*" if li.update_attributes(:supplier_id => @suppliers.shuffle.first.id)
       end
       puts
       
-      puts "Creating Drop Ship Orders"
-      25.times{|i|
-        order = @orders.shuffle.first
-        dso = DropShipOrder.create(:order => order, :supplier => @suppliers.shuffle.first)
-        out = if dso.add(order.line_items).deliver!
-          count += 1
-          "*"
-        else
-          "-"
-        end
-        print out
-      }
-      puts
-      puts "#{count} drop ship orders created."
+      puts "Creating drop ship orders for existing orders"
+      Order.all.each do |order|
+	      print "*" if order.finalize_for_dropship!
+      end
+      puts 
+      
     end  
   end
 end

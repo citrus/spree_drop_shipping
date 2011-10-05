@@ -6,12 +6,17 @@ class OrderTest < ActiveSupport::TestCase
     DropShipOrder.destroy_all
   end
 
-  should have_one(:drop_ship_order)
+  should have_many(:drop_ship_orders)
   
   should "have respond to finalize_for_dropship!" do
     assert subject.respond_to?(:finalize_for_dropship!)
   end
   
+  should "check for drop ship order" do
+    assert !subject.has_drop_ship_order?
+    subject.drop_ship_orders =  [ subject.drop_ship_orders.build ]
+    assert subject.has_drop_ship_order?
+  end  
   
   context "An existing order" do
   
