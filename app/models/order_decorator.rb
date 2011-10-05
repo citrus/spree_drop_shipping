@@ -19,11 +19,7 @@ Order.class_eval do
   end
   
   def approve_drop_ship_orders
-    count = 0
-    drop_ship_orders.each do |dso|
-      count += 1 if dso.deliver
-    end
-    count == drop_ship_orders.length
+    drop_ship_orders.select{|dso| dso.deliver }.length == drop_ship_orders.length
   end
   
 end
