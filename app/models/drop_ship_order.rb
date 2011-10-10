@@ -40,7 +40,7 @@ class DropShipOrder < ActiveRecord::Base
     end 
     
     state :complete do
-      validates :shipping_method, :confirmation_number, :tracking_number, :presence => true 
+      validates :shipping_method, :tracking_number, :presence => true 
     end
     
   end
