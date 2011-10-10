@@ -23,6 +23,8 @@ class Admin::DropShipOrdersController < Admin::ResourceController
       params[:search][:meta_sort] ||= "id.desc"
       scope = if params[:supplier_id] && @supplier = Supplier.find(params[:supplier_id])
         @supplier.orders
+      elsif params[:order_id] && @order = Order.find_by_number(params[:order_id])
+        @order.drop_ship_orders
       else
         DropShipOrder.scoped
       end      

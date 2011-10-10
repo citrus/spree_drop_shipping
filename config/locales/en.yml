@@ -34,6 +34,8 @@ en:
   
   admin:
     orders:
+      dso_order_header:
+        dso_ids: DSO IDs
       confirm_drop_ship_info:
         approve_drop_ship_orders: Approve Drop Ship Orders
         resend_drop_ship_orders: Resend Drop Ship Orders

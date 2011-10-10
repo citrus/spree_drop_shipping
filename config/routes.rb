@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :admin do
     
     resources :orders do
+      resources :drop_ship_orders
       member do
         get :drop_ship_approve
       end
