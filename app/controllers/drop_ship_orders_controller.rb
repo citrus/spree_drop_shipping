@@ -13,7 +13,7 @@ class DropShipOrdersController < Spree::BaseController
       flash[:notice] = "Please review and click 'Confirm Order' to continue."  
     elsif @dso.confirmed?
       if @dso.errors.empty?
-        flash[:notice] = "Thanks! You've for confirming this order. Upon shipping, please click 'Process and finalize order' to continue."
+        flash[:notice] = "We've been notified that you've confirmed this order. To complete the order please, upon shipping, enter the shipping information and click 'Process and finalize order'. Thank You."
       end
     end
     redirect_to @dso if @dso.complete?
