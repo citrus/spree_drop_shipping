@@ -17,7 +17,7 @@ Feature: Supplier Drop ship orders
     Then I press "Place Order"
       And I should see "Your order has been processed successfully" in the flash notice
     Then supplier named "Some Big Store" should have 1 order for the first product
-      And "Some Big Store" should receive an order email
+      # And "Some Big Store" should receive an order email
   
   Scenario: Supplier receives drop ship order
     Given I have an existing supplier named "Some Big Store"
