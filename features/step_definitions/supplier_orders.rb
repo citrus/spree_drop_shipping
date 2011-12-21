@@ -101,6 +101,10 @@ Given /^the last drop ship order has been confirmed$/ do
   DropShipOrder.last.confirm!
 end
 
+Then /^I should see the confirmation flash message$/ do
+  step "I should see \"#{I18n.t('supplier_orders.flash.confirmed')}\" in the flash notice"
+end
+
 Then /^supplier named "([^"]*)" should have (\d+) orders? for the first product$/ do |name, order_count|
   supplier = Supplier.find_by_name(name)
   product = Product.first

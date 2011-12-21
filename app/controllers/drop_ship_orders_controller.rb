@@ -10,10 +10,10 @@ class DropShipOrdersController < Spree::BaseController
 
   def edit
     if @dso.sent?
-      flash[:notice] = "Please review and click 'Confirm Order' to continue."  
+      flash[:notice] = I18n.t('supplier_orders.flash.sent')
     elsif @dso.confirmed?
       if @dso.errors.empty?
-        flash[:notice] = "We've been notified that you've confirmed this order. To complete the order please, upon shipping, enter the shipping information and click 'Process and finalize order'. Thank You."
+        flash[:notice] = I18n.t('supplier_orders.flash.confirmed')
       end
     end
     redirect_to @dso if @dso.complete?
@@ -27,13 +27,13 @@ class DropShipOrdersController < Spree::BaseController
     elsif @dso.confirmed?
       success = @dso.update_attributes(params[:drop_ship_order]) && @dso.ship
       url = drop_ship_order_path(@dso)
-      flash[:notice] = "Thank you for your shipment!" if success
+      flash[:notice] = I18n.t('supplier_orders.flash.shipped') if success
     end
     
     if success
       redirect_to url
     else
-      flash[:error] = "Order was not successfully #{@dso.confirmed? ? 'confirmed' : 'processed and finalized'}."
+      flash[:error] = I18n.t("supplier_orders.flash.#{@dso.confirmed? ? 'confirmation_failure' : 'finalize_failure'}")
       render :edit
     end
     

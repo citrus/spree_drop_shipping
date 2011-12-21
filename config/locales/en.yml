@@ -32,6 +32,15 @@ en:
     zipcode: Zipcode
     country: Country
   
+  
+  supplier_orders:
+    flash:
+      sent: "Please review and click 'Confirm Order' to continue."
+      confirmed: "We've been notified that you've confirmed this order. To complete the order please, upon shipping, enter the shipping information and click 'Process and finalize order'. Thank You."
+      shipped: "Thank you for your shipment!"
+      confirmation_failure: "We're sorry, this order could not be confirmed. Please try again."
+      finalize_failure: "We're sorry, this order could not be finalized at this time. Please try again."
+  
   admin:
     orders:
       dso_order_header:

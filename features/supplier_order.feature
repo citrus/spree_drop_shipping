@@ -28,7 +28,7 @@ Feature: Supplier Drop ship orders
       And I should see "Please review and click 'Confirm Order' to continue." in the flash notice
     When I press "Confirm Order"
     Then I should be editing the last drop ship order
-      And I should see "Thanks! You've for confirming this order. Upon shipping, please click 'Process and finalize order' to continue." in the flash notice
+      And I should see the confirmation flash message
 
   Scenario: Supplier ships confirmed drop ship order
     Given I have an existing supplier named "Some Big Store"
