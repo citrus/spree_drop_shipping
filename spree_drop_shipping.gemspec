@@ -21,11 +21,12 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   # Spree
-  s.add_dependency('spree_core', '>= 0.60.1')
-  s.add_dependency('spree_auth', '>= 0.60.1')
+  s.add_dependency('spree_core', '~> 0.60.4')
+  s.add_dependency('spree_auth', '~> 0.60.4')
   
   # Development
-  s.add_development_dependency('spree_sample',     '>= 0.60.1')
+  s.add_development_dependency('minitest',         '>= 2.1.0')
+  s.add_development_dependency('spree_sample',     '~> 0.60.4')
   s.add_development_dependency('dummier',          '>= 0.2.4')
   s.add_development_dependency('shoulda',          '>= 3.0.0.beta2')
   s.add_development_dependency('spork',            '>= 0.9.0.rc9')

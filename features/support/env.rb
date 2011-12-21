@@ -34,17 +34,17 @@ Spork.each_run do
   
   Before do |s| 
 
-    ActionMailer::Base.deliveries = []
-  
     Fixtures.reset_cache
     fixtures_folder = File.expand_path("../../../test/fixtures", __FILE__)
     fixtures = Dir[File.join(fixtures_folder, '*.yml')].map {|f| File.basename(f, '.yml') }
     Fixtures.create_fixtures(fixtures_folder, fixtures)
     
+    ActionMailer::Base.deliveries = []
+  
     if s.feature.name.match(/^Admin\s/)
       @user = Factory.create(:admin_user)
       login_as @user
-    end    
+    end
   
   end  
 
