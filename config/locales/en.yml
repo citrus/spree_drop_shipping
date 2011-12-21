@@ -1,8 +1,8 @@
 en:
 
-  successfully_created: %{resource} was successfully created.
-  successfully_updated: %{resource} was successfully updated.
-  successfully_removed: %{resource} was successfully removed.
+  successfully_created: "%{resource} was successfully created."
+  successfully_updated: "%{resource} was successfully updated."
+  successfully_removed: "%{resource} was successfully removed."
 
 
   activerecord:
