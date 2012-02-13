@@ -4,8 +4,5 @@
     <dt><%= product_property.property.presentation %></dt>
     <dd><%= product_property.value %></dd>
   <% end %>
-  <% if @product.has_supplier? %>
-    <%= render "supplier_info", :supplier => @product.supplier %>
-  <% end %>
 </dl>
 <% end %>
