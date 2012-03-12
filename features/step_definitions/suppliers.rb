@@ -3,6 +3,6 @@ Given /^I have an existing supplier named "([^"]*)"$/ do |name|
 end
 
 Given /^I'm logged in as "([^"]*)"$/ do |name|
-  supplier = Supplier.find_by_name(name)
+  supplier = Spree::Supplier.find_by_name(name)
   login_as supplier.user
 end

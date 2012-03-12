@@ -78,6 +78,7 @@ Clone this repo to where you develop, bundle up, then run `dummier' to get the s
 
 This will generate a fresh rails app in test/dummy, install spree & spree_drop_shipping, then migrate the test database. Sweet.
 
+Note: Currently you must hit enter `n` to reject overwriting conflicts, and simply hit `enter` when prompted for email and password.
 
 ### Spork + Cucumber
 

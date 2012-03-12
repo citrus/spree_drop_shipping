@@ -23,7 +23,7 @@ module SpreeDropShipping
       
       def copy_migrations
         
-        %w(create_suppliers create_supplier_products create_drop_ship_orders create_drop_ship_line_items add_supplier_to_line_items).each do |m|      
+        %w(create_suppliers create_supplier_products create_drop_ship_orders create_drop_ship_line_items add_supplier_to_line_items namespace_drop_ship_tables).each do |m|      
           migration_template "db/migrate/#{m}.rb", "db/migrate/#{m}.rb"
         end
         
