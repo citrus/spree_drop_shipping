@@ -1,2 +1,7 @@
-<dt>Supplier Info</dt>
-<dd><%= supplier.name %></dd>
+<% if @product.supplier.present? %>
+  <% klass = @product_properties.size % 2 == 0 ? 'even' : 'odd' %>
+  <tr class="<%= klass %>">
+    <td><strong>Supplier Name</strong></td>
+    <td><%= @product.supplier.name %></td>
+  </tr>
+<% end %>
