@@ -14,7 +14,7 @@
   <% dso.line_items.each do |li| %>
     <tr>
       <td><%= li.sku %></td>
-      <td><%= li.name %></td>
+      <td><%= li.name %> <%= "(#{variant_options(li.variant)})" unless variant_options(li.variant).blank? %></td>
       <td><%= li.quantity %></td>
       <td><%= li.price %></td>
       <td><%= li.subtotal %></td>

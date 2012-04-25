@@ -1,5 +1,7 @@
 class DropShipOrderMailer < ActionMailer::Base
   
+  helper "spree/base"
+  
   default_url_options[:host] = "localhost:3000"
   
   default :from => 'no-reply@example.com'

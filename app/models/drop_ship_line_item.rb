@@ -1,6 +1,7 @@
 class DropShipLineItem < ActiveRecord::Base
 
   belongs_to :drop_ship_order
+  belongs_to :variant
 
   validates :drop_ship_order_id, :variant_id, :sku, :quantity, :price, :presence => true
 

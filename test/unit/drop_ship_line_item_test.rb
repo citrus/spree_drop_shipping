@@ -3,6 +3,7 @@ require_relative '../test_helper'
 class DropShipLineItemTest < ActiveSupport::TestCase
 
   should belong_to(:drop_ship_order)
+  should belong_to(:variant)
   
   should validate_presence_of(:drop_ship_order_id)
   should validate_presence_of(:variant_id)
