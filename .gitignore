@@ -1,6 +1,7 @@
 *.gem
 .bundle
 .rvmrc
+.sass-cache
 .DS_Store
 Gemfile.lock
 pkg/*
