@@ -1,8 +1,0 @@
-<%#= tab :suppliers # wtf.. why isn't this working?? %>
-
-<li class="<%= request.path =~ Regexp.new("^#{admin_suppliers_path}") ? "selected" : "" %>">
-  <%= link_to "Suppliers", admin_suppliers_path %>
-</li>
-<li class="<%= request.path =~ Regexp.new("^#{admin_drop_ship_orders_path}") ? "selected" : "" %>">
-  <%= link_to "Drop Ship Orders", admin_drop_ship_orders_path %>
-</li>

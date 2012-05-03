@@ -30,10 +30,10 @@ end
 # Givens
 
 Given /^I'm on the ((?!page).*) page$/ do |path|
-  path = "#{path.downcase.gsub(/\s/, '_')}_path".to_sym
-  begin 
-    visit send(path)
-  rescue 
+  path = eval "spree.#{path.downcase.gsub(/\s/, '_')}_path"
+  begin
+    visit path
+  rescue
     puts "#{path} could not be found!"
   end
 end
@@ -41,13 +41,13 @@ end
 Given /^I'm on the ((?!page).*) page for (.*)$/ do |path, id|
   case id
     when "the first product"
-      id = Product.first
+      id = Spree::Product.first
     when "the last drop ship order"
-      id = DropShipOrder.last
+      id = Spree::DropShipOrder.last
   end
-  path = "#{path.downcase.gsub(/\s/, '_')}_path".to_sym
+  path = eval "spree.#{path.downcase.gsub(/\s/, '_')}_path('#{id.to_param}')"
   begin 
-    visit send(path, id)
+    visit path
   rescue 
     puts "#{path} could not be found!"
   end
