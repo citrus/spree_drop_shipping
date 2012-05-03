@@ -17,19 +17,19 @@ class Spree::Admin::DropShipOrdersController < Spree::Admin::ResourceController
   end
  
   private
-      
+
     def collection
-      params[:search] ||= {}
-      params[:search][:meta_sort] ||= "id.desc"
+      params[:q] ||= {}
+      params[:q][:meta_sort] ||= "id.desc"
       scope = if params[:supplier_id] && @supplier = Spree::Supplier.find(params[:supplier_id])
         @supplier.orders
       elsif params[:order_id] && @order = Spree::Order.find_by_number(params[:order_id])
         @order.drop_ship_orders
       else
         Spree::DropShipOrder.scoped
-      end      
-      @search = scope.includes(:supplier).search(params[:search])
-      @collection = @search.page(params[:page]).per(Spree::Config[:orders_per_page])
+      end
+      @search = scope.includes(:supplier).search(params[:q])
+      @collection = @search.result.page(params[:page]).per(Spree::Config[:orders_per_page])
     end
 
 end

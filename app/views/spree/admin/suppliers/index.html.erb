@@ -25,8 +25,8 @@
       <td><%= supplier.phone %></td>
       <td><%= mail_to supplier.email %></td>
       <td>
-      	<%= link_to_edit supplier %> &nbsp;
-      	<%= link_to_delete supplier %>
+        <%= link_to_edit supplier %> &nbsp;
+        <%= link_to_delete supplier %>
       </td>
     </tr>
     <% end %>
@@ -38,19 +38,17 @@
 <% content_for :sidebar do %>
   <div class="box">
     <h3><%= t('search') %></h3>
-
-    <% @supplier = Spree::Supplier.metasearch %>
-    <%= form_for [:admin, @supplier] do |f| %>
-      <%- locals = {:f => f} %>
-      <%= hook :admin_suppliers_index_search, locals do %>
+    <% @supplier = Spree::Supplier.ransack %>
+    <%= search_form_for [:admin, @supplier] do |f| %>
+      <div data-hook='admin_suppliers_index_search'>
         <p>
           <label><%= t 'supplier.name' %></label><br />
-          <%= f.text_field :name_like, :size => 25 %>
+          <%= f.text_field :name_matches, :size => 25 %>
         </p>
-      <% end %>
-      <%= hook :admin_suppliers_index_search_buttons, locals do %>
+      </div>
+      <div data-hook='admin_suppliers_index_search_buttons'>
         <p><%= button t('search') %></p>
-      <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
