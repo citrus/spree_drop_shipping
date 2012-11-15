@@ -1,5 +1,5 @@
 require 'spree_core'
-require 'spree_auth'
+# require 'spree_auth'
 require 'spree_sample' unless Rails.env.production?
 
 module SpreeDropShipping
@@ -16,7 +16,7 @@ module SpreeDropShipping
 
       Spree::Order.class_eval do
         state_machine do
-          after_transition :to => 'complete', :do => :finalize_for_dropship!
+          after_transition :to => :complete, :do => :finalize_for_dropship!
         end
       end
 
