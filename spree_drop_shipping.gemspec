@@ -21,7 +21,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   
   # Spree
-  s.add_dependency('spree_core', '~> 1.2.0')
+  s.add_dependency('spree_core', '~> 1.3.1')
+  # s.add_dependency('spree_core', '~> 1.2.0')
   # s.add_dependency('spree_core', '>= 1.1.0')
   # s.add_dependency('spree_auth', '>= 1.1.0')
   
