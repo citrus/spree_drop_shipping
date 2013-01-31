@@ -1,9 +1,10 @@
 en:
+  drop_ship_orders: Drop Ship Orders
+  suppliers: Suppliers
 
   successfully_created: "%{resource} was successfully created."
   successfully_updated: "%{resource} was successfully updated."
   successfully_removed: "%{resource} was successfully removed."
-
 
   activerecord:
     errors:
@@ -15,7 +16,7 @@ en:
             url:
               invalid: is invalid. Please be sure to include include 'http://'
               not_responding: is invalid, not responding or redirecting to another location
-  
+
   supplier:
     name: Name
     email: Email
@@ -31,8 +32,7 @@ en:
     state: State
     zipcode: Zipcode
     country: Country
-  
-  
+
   supplier_orders:
     flash:
       sent: "Please review and click 'Confirm Order' to continue."
@@ -40,26 +40,30 @@ en:
       shipped: "Thank you for your shipment!"
       confirmation_failure: "We're sorry, this order could not be confirmed. Please try again."
       finalize_failure: "We're sorry, this order could not be finalized at this time. Please try again."
-  
-  admin:
-    orders:
-      dso_order_header:
-        dso_ids: DSO IDs
-      confirm_drop_ship_info:
-        approve_drop_ship_orders: Approve Drop Ship Orders
-        resend_drop_ship_orders: Resend Drop Ship Orders
-        drop_ship_order_approval_confrmation: This will send each drop ship order to it's relative supplier. Continue?
-    shared:
-      product_form_right: 
-        supplier: Drop Shipping Supplier
-        none: --- none ---
-    suppliers:
-      new:
-        new_supplier: New Supplier
-      form:
-        supplier_details: Supplier Details
-        supplier_address: Supplier Address
-        
-    drop_ship_orders:
-      orders_sent: All drop ship orders have successfully been sent
-      orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.
+
+  spree:
+    admin:
+      orders:
+        dso_order_header:
+          dso_ids: DSO IDs
+        confirm_drop_ship_info:
+          approve_drop_ship_orders: Approve Drop Ship Orders
+          resend_drop_ship_orders: Resend Drop Ship Orders
+          drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
+        show:
+          approve_drop_ship_orders: Approve Drop Ship Orders
+          resend_drop_ship_orders: Resend Drop Ship Orders
+          drop_ship_order_approval_confirmation: This will send each drop ship order to it's relative supplier. Continue?
+      products:
+        form:
+          supplier: Drop Shipping Supplier
+          none: --- none ---
+      suppliers:
+        new:
+          new_supplier: New Supplier
+        form:
+          supplier_details: Supplier Details
+          supplier_address: Supplier Address
+      drop_ship_orders:
+        orders_sent: All drop ship orders have successfully been sent
+        orders_not_sent: Some or all of the drop ship orders could not be sent. Please contact the suppliers directly.

@@ -78,6 +78,7 @@ Clone this repo to where you develop, bundle up, then run `dummier' to get the s
 
 This will generate a fresh rails app in test/dummy, install spree & spree_drop_shipping, then migrate the test database. Sweet.
 
+Note: Currently you must hit enter `n` to reject overwriting conflicts, and simply hit `enter` when prompted for email and password.
 
 ### Spork + Cucumber
 
@@ -140,7 +141,7 @@ You can easily use the test/dummy app as a demo of spree_drop_shipping. Just `cd
 You can also enable the `after_migrate` [dummier](https://github.com/citrus/dummier) hook by renaming `after_migrate.rb.sample` to `after_migrate.rb` in `lib/dummy_hooks` then re-run `bundle exec dummier`. In other words, just do this:
 
     cd spree_drop_shipping
-    mv lib/dummy_hooks/after_migrate.rb.sample lib/dummy_hooks/after_migrate.rb
+    mv test/dummy_hooks/after_migrate.rb.sample lib/dummy_hooks/after_migrate.rb
     bundle exec dummier
     cd test/dummy
     rails s

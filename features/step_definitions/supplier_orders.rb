@@ -1,6 +1,6 @@
 def visit_first_product
-  @product = Product.first
-  visit(product_path(@product))
+  @product = Spree::Product.first
+  visit(spree.product_path(@product))
   click_button("Add To Cart")
   assert has_content?(@product.name)
 end
@@ -8,7 +8,7 @@ end
 def click_checkout
   # click the checkout button
   btn = find(:xpath, '//a[@class="button checkout primary"][last()]')
-  assert_equal "checkout", btn.text
+  assert_equal "Checkout", btn.text
   btn.click
 end
 
@@ -85,20 +85,20 @@ Given /^I have a shipping method$/ do
 end
 
 Given /^I have a bogus payment method$/ do
-  Factory.create(:bogus_payment_method)
+  Factory.create(:bogus_payment_method, :environment => 'cucumber')
 end
 
 Given /^supplier named "([^"]*)" has been sent a drop ship order for the first product$/ do |name|
-  supplier = Supplier.find_by_name(name)
-  order = Order.find_by_state('complete')
-  order.ship_address = Address.find_by_firstname("Boxy")
+  supplier = Spree::Supplier.find_by_name(name)
+  order = Spree::Order.find_by_state('complete')
+  order.ship_address = Spree::Address.find_by_firstname("Boxy")
   order.save
   dso = Factory.create(:drop_ship_order, :supplier => supplier, :order => order)
   dso.add(order.line_items).deliver!
 end
 
 Given /^the last drop ship order has been confirmed$/ do
-  DropShipOrder.last.confirm!
+  Spree::DropShipOrder.last.confirm!
 end
 
 Then /^I should see the confirmation flash message$/ do
@@ -106,14 +106,14 @@ Then /^I should see the confirmation flash message$/ do
 end
 
 Then /^supplier named "([^"]*)" should have (\d+) orders? for the first product$/ do |name, order_count|
-  supplier = Supplier.find_by_name(name)
-  product = Product.first
+  supplier = Spree::Supplier.find_by_name(name)
+  product = Spree::Product.first
   assert_equal order_count.to_i, supplier.orders.count
   assert_equal product.sku, supplier.orders.first.line_items.first.sku
 end
 
 #Then /^"([^"]*)" should receive an order email$/ do |name|
-#  supplier = Supplier.find_by_name(name)
+#  supplier = Spree::Supplier.find_by_name(name)
 #  flunk if ActionMailer::Base.deliveries.empty?
 #  assert_equal supplier.email, ActionMailer::Base.deliveries.last.to.first
 #  assert_equal "#{Spree::Config[:site_name]} - Order ##{supplier.orders.last.id}", ActionMailer::Base.deliveries.last.subject
@@ -131,11 +131,11 @@ Then /^I follow "([^"]*)" from within the email body$/ do |link|
 end
 
 Then /^I should be editing the last drop ship order$/ do
-  assert_equal edit_drop_ship_order_path(DropShipOrder.last), current_path
+  assert_equal spree.edit_drop_ship_order_path(Spree::DropShipOrder.last), current_path
 end
 
 Then /^I should be viewing the last drop ship order$/ do
-  assert_equal drop_ship_order_path(DropShipOrder.last), current_path
+  assert_equal spree.drop_ship_order_path(Spree::DropShipOrder.last), current_path
 end
 
 
