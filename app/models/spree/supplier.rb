@@ -5,6 +5,7 @@ class Spree::Supplier < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :address
+  attr_accessible :name, :email, :phone, :url, :contact, :contact_email, :contact_phone
   has_many   :supplier_products, :dependent => :destroy
   has_many   :products, :through => :supplier_products
   has_many   :orders, :class_name => "Spree::DropShipOrder", :dependent => :nullify
